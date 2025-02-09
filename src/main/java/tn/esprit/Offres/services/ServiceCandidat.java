@@ -31,8 +31,8 @@ public class ServiceCandidat implements IService<Candidat> {
         preparedStatement.setString(6, candidat.getDepartment());
         preparedStatement.setString(7, candidat.getExperience_interne());
         preparedStatement.setString(8, candidat.getCompetence());
-        preparedStatement.setString(9, candidat.getStatu_candidat());
-        preparedStatement.setString(10, candidat.getDisponibilite());
+        preparedStatement.setString(9, candidat.getStatu_candidat().name()); // Utilisation de ENUM.name()
+        preparedStatement.setString(10, candidat.getDisponibilite().name()); // Utilisation de ENUM.name()
 
         preparedStatement.executeUpdate();  // Exécuter l'insertion
     }
@@ -51,8 +51,8 @@ public class ServiceCandidat implements IService<Candidat> {
         preparedStatement.setString(6, candidat.getDepartment());
         preparedStatement.setString(7, candidat.getExperience_interne());
         preparedStatement.setString(8, candidat.getCompetence());
-        preparedStatement.setString(9, candidat.getStatu_candidat());
-        preparedStatement.setString(10, candidat.getDisponibilite());
+        preparedStatement.setString(9, candidat.getStatu_candidat().name()); // Utilisation de ENUM.name()
+        preparedStatement.setString(10, candidat.getDisponibilite().name()); // Utilisation de ENUM.name()
         preparedStatement.setInt(11, candidat.getId_candidat());
 
         int rowsUpdated = preparedStatement.executeUpdate();
@@ -86,6 +86,10 @@ public class ServiceCandidat implements IService<Candidat> {
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
+            // Convertir les chaînes de caractères en énumérations
+            Candidat.StatuCandidat statuCandidat = Candidat.StatuCandidat.valueOf(rs.getString("statu_candidat"));
+            Candidat.Disponibilite disponibilite = Candidat.Disponibilite.valueOf(rs.getString("disponibilite"));
+
             candidats.add(new Candidat(
                     rs.getInt("id_candidat"),
                     rs.getString("nom_candidat"),
@@ -96,8 +100,8 @@ public class ServiceCandidat implements IService<Candidat> {
                     rs.getString("department"),
                     rs.getString("experience_interne"),
                     rs.getString("competence"),
-                    rs.getString("statu_candidat"),
-                    rs.getString("disponibilite")
+                    statuCandidat, // Utilisation de l'énumération
+                    disponibilite  // Utilisation de l'énumération
             ));
         }
 

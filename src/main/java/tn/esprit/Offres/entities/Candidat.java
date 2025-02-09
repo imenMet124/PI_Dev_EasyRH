@@ -1,23 +1,31 @@
 package tn.esprit.Offres.entities;
 
 public class Candidat {
+    private int id_candidat;
+    private String nom_candidat;
+    private String prenom_candidat;
+    private String email_candidat;
+    private String telephone_candidat;
+    private String poste_actuel;
+    private String department;
+    private String experience_interne;
+    private String competence;
+    private StatuCandidat statu_candidat;
+    private Disponibilite disponibilite;
 
-        private int id_candidat;
-        private String nom_candidat;
-        private String prenom_candidat;
-        private String email_candidat;
-        private String telephone_candidat;
-        private String poste_actuel;
-        private String department;
-        private String experience_interne;
-        private String competence;
-        private String statu_candidat;
-        private String disponibilite;
+    public enum StatuCandidat {
+        EN_ATTENTE, EN_COURS, SHORTLISTE, ENTREVUE, ACCEPTE, REFUSE
+    }
 
+    public enum Disponibilite {
+        IMMEDIATE, UN_MOIS, DEUX_MOIS, TROIS_MOIS
+    }
+
+    // Constructeurs, getters et setters
     public Candidat() {
     }
 
-    public Candidat(int id_candidat, String nom_candidat, String prenom_candidat, String email_candidat, String telephone_candidat, String poste_actuel, String department, String experience_interne, String competence, String statu_candidat, String disponibilite) {
+    public Candidat(int id_candidat, String nom_candidat, String prenom_candidat, String email_candidat, String telephone_candidat, String poste_actuel, String department, String experience_interne, String competence, StatuCandidat statu_candidat, Disponibilite disponibilite) {
         this.id_candidat = id_candidat;
         this.nom_candidat = nom_candidat;
         this.prenom_candidat = prenom_candidat;
@@ -31,19 +39,7 @@ public class Candidat {
         this.disponibilite = disponibilite;
     }
 
-    public Candidat(String nom_candidat, String prenom_candidat, String email_candidat, String telephone_candidat, String poste_actuel, String department, String experience_interne, String competence, String statu_candidat, String disponibilite) {
-        this.nom_candidat = nom_candidat;
-        this.prenom_candidat = prenom_candidat;
-        this.email_candidat = email_candidat;
-        this.telephone_candidat = telephone_candidat;
-        this.poste_actuel = poste_actuel;
-        this.department = department;
-        this.experience_interne = experience_interne;
-        this.competence = competence;
-        this.statu_candidat = statu_candidat;
-        this.disponibilite = disponibilite;
-    }
-
+    // Getters et setters pour chaque attribut
     public int getId_candidat() {
         return id_candidat;
     }
@@ -116,19 +112,19 @@ public class Candidat {
         this.competence = competence;
     }
 
-    public String getStatu_candidat() {
+    public StatuCandidat getStatu_candidat() {
         return statu_candidat;
     }
 
-    public void setStatu_candidat(String statu_candidat) {
+    public void setStatu_candidat(StatuCandidat statu_candidat) {
         this.statu_candidat = statu_candidat;
     }
 
-    public String getDisponibilite() {
+    public Disponibilite getDisponibilite() {
         return disponibilite;
     }
 
-    public void setDisponibilite(String disponibilite) {
+    public void setDisponibilite(Disponibilite disponibilite) {
         this.disponibilite = disponibilite;
     }
 
@@ -144,8 +140,8 @@ public class Candidat {
                 ", department='" + department + '\'' +
                 ", experience_interne='" + experience_interne + '\'' +
                 ", competence='" + competence + '\'' +
-                ", statu_candidat='" + statu_candidat + '\'' +
-                ", disponibilite='" + disponibilite + '\'' +
+                ", statu_candidat=" + statu_candidat +
+                ", disponibilite=" + disponibilite +
                 '}';
     }
 }
