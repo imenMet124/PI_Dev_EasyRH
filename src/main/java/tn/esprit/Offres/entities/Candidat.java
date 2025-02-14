@@ -1,17 +1,20 @@
 package tn.esprit.Offres.entities;
 
+import tn.esprit.Offres.entities.User; // Importez l'entité User
+
 public class Candidat {
-    private int id_candidat;
-    private String nom_candidat;
-    private String prenom_candidat;
-    private String email_candidat;
-    private String telephone_candidat;
-    private String poste_actuel;
-    private String department;
-    private String experience_interne;
-    private String competence;
-    private StatuCandidat statu_candidat;
-    private Disponibilite disponibilite;
+    private int idCandidat;
+    private User user; // Référence à l'utilisateur (employé)
+    private String nom; // Nom de l'utilisateur
+    private String prenom; // Prénom de l'utilisateur
+    private String email; // Email de l'utilisateur
+    private String phone; // Téléphone de l'utilisateur
+    private String position; // Poste actuel de l'utilisateur
+    private String department; // Département de l'utilisateur
+    private String experienceInterne; // Chemin du fichier d'expérience interne
+    private String competence; // Chemin du fichier de compétences
+    private StatuCandidat statuCandidat = StatuCandidat.EN_ATTENTE; // Statut de la candidature avec valeur initiale
+    private Disponibilite disponibilite; // Disponibilité
 
     public enum StatuCandidat {
         EN_ATTENTE, EN_COURS, SHORTLISTE, ENTREVUE, ACCEPTE, REFUSE
@@ -21,71 +24,80 @@ public class Candidat {
         IMMEDIATE, UN_MOIS, DEUX_MOIS, TROIS_MOIS
     }
 
-    // Constructeurs, getters et setters
+    // Constructeurs
     public Candidat() {
     }
 
-    public Candidat(int id_candidat, String nom_candidat, String prenom_candidat, String email_candidat, String telephone_candidat, String poste_actuel, String department, String experience_interne, String competence, StatuCandidat statu_candidat, Disponibilite disponibilite) {
-        this.id_candidat = id_candidat;
-        this.nom_candidat = nom_candidat;
-        this.prenom_candidat = prenom_candidat;
-        this.email_candidat = email_candidat;
-        this.telephone_candidat = telephone_candidat;
-        this.poste_actuel = poste_actuel;
+    public Candidat(int idCandidat, User user, String nom, String prenom, String email, String phone, String position, String department, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
+        this.idCandidat = idCandidat;
+        this.user = user;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.phone = phone;
+        this.position = position;
         this.department = department;
-        this.experience_interne = experience_interne;
-        this.competence = competence;
-        this.statu_candidat = statu_candidat;
+        this.setExperienceInterne(experienceInterne); // Utilisation du setter pour la validation
+        this.setCompetence(competence); // Utilisation du setter pour la validation
+        this.statuCandidat = statuCandidat;
         this.disponibilite = disponibilite;
     }
 
-    // Getters et setters pour chaque attribut
-    public int getId_candidat() {
-        return id_candidat;
+    // Getters et setters
+    public int getIdCandidat() {
+        return idCandidat;
     }
 
-    public void setId_candidat(int id_candidat) {
-        this.id_candidat = id_candidat;
+    public void setIdCandidat(int idCandidat) {
+        this.idCandidat = idCandidat;
     }
 
-    public String getNom_candidat() {
-        return nom_candidat;
+    public User getUser() {
+        return user;
     }
 
-    public void setNom_candidat(String nom_candidat) {
-        this.nom_candidat = nom_candidat;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getPrenom_candidat() {
-        return prenom_candidat;
+    public String getNom() {
+        return nom;
     }
 
-    public void setPrenom_candidat(String prenom_candidat) {
-        this.prenom_candidat = prenom_candidat;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getEmail_candidat() {
-        return email_candidat;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setEmail_candidat(String email_candidat) {
-        this.email_candidat = email_candidat;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-    public String getTelephone_candidat() {
-        return telephone_candidat;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTelephone_candidat(String telephone_candidat) {
-        this.telephone_candidat = telephone_candidat;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPoste_actuel() {
-        return poste_actuel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPoste_actuel(String poste_actuel) {
-        this.poste_actuel = poste_actuel;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getDepartment() {
@@ -96,12 +108,15 @@ public class Candidat {
         this.department = department;
     }
 
-    public String getExperience_interne() {
-        return experience_interne;
+    public String getExperienceInterne() {
+        return experienceInterne;
     }
 
-    public void setExperience_interne(String experience_interne) {
-        this.experience_interne = experience_interne;
+    public void setExperienceInterne(String experienceInterne) {
+        if (experienceInterne == null || experienceInterne.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le chemin du fichier d'expérience interne ne peut pas être vide.");
+        }
+        this.experienceInterne = experienceInterne;
     }
 
     public String getCompetence() {
@@ -109,15 +124,18 @@ public class Candidat {
     }
 
     public void setCompetence(String competence) {
+        if (competence == null || competence.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le chemin du fichier de compétences ne peut pas être vide.");
+        }
         this.competence = competence;
     }
 
-    public StatuCandidat getStatu_candidat() {
-        return statu_candidat;
+    public StatuCandidat getStatuCandidat() {
+        return statuCandidat;
     }
 
-    public void setStatu_candidat(StatuCandidat statu_candidat) {
-        this.statu_candidat = statu_candidat;
+    public void setStatuCandidat(StatuCandidat statuCandidat) {
+        this.statuCandidat = statuCandidat;
     }
 
     public Disponibilite getDisponibilite() {
@@ -131,16 +149,17 @@ public class Candidat {
     @Override
     public String toString() {
         return "Candidat{" +
-                "id_candidat=" + id_candidat +
-                ", nom_candidat='" + nom_candidat + '\'' +
-                ", prenom_candidat='" + prenom_candidat + '\'' +
-                ", email_candidat='" + email_candidat + '\'' +
-                ", telephone_candidat='" + telephone_candidat + '\'' +
-                ", poste_actuel='" + poste_actuel + '\'' +
+                "idCandidat=" + idCandidat +
+                ", user=" + user +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", position='" + position + '\'' +
                 ", department='" + department + '\'' +
-                ", experience_interne='" + experience_interne + '\'' +
+                ", experienceInterne='" + experienceInterne + '\'' +
                 ", competence='" + competence + '\'' +
-                ", statu_candidat=" + statu_candidat +
+                ", statuCandidat=" + statuCandidat +
                 ", disponibilite=" + disponibilite +
                 '}';
     }
