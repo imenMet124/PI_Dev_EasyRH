@@ -51,7 +51,7 @@ public class Main {
 
             candidat.setExperienceInterne("/path/to/experience.pdf");
             candidat.setCompetence("/path/to/competence.pdf");
-            candidat.setStatuCandidat(Candidat.StatuCandidat.EN_ATTENTE);
+            candidat.setStatuCandidat(Candidat.StatuCandidat.SHORTLISTE);
             candidat.setDisponibilite(Candidat.Disponibilite.IMMEDIATE);
 
             // Ajouter la candidature

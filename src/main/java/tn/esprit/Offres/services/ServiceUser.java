@@ -16,7 +16,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void ajouter(User user) throws SQLException {
-        String sql = "INSERT INTO `user`(`id_emp`, `nom_emp`, `email`, `phone`, `role`, `position`, `salaire`, `date_embauche`, `statut_emp`, `id_dep`) "
+        String sql = "INSERT INTO `user`(`idEmp`, `nomEmp`, `email`, `phone`, `role`, `position`, `salaire`, `dateEmbauche`, `statutEmp`, `idDep`) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -37,8 +37,8 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void modifier(User user) throws SQLException {
-        String sql = "UPDATE `user` SET `nom_emp` = ?, `email` = ?, `phone` = ?, `role` = ?, `position` = ?, `salaire` = ?, `date_embauche` = ?, `statut_emp` = ?, `id_dep` = ? "
-                + "WHERE `id_emp` = ?";
+        String sql = "UPDATE `user` SET `nomEmp` = ?, `email` = ?, `phone` = ?, `role` = ?, `position` = ?, `salaire` = ?, `dateEmbauche` = ?, `statutEmp` = ?, `idDep` = ? "
+                + "WHERE `idEmp` = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user.getNomEmp());
@@ -62,7 +62,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void supprimer(int id) throws SQLException {
-        String sql = "DELETE FROM `user` WHERE `id_emp` = ?";
+        String sql = "DELETE FROM `user` WHERE `idEmp` = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -83,16 +83,16 @@ public class ServiceUser implements IService<User> {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             users.add(new User(
-                    rs.getInt("id_emp"),
-                    rs.getString("nom_emp"),
+                    rs.getInt("idEmp"),
+                    rs.getString("nomEmp"),
                     rs.getString("email"),
                     rs.getString("phone"),
                     rs.getString("role"),
                     rs.getString("position"),
                     rs.getDouble("salaire"),
-                    rs.getDate("date_embauche"),
-                    rs.getString("statut_emp"),
-                    rs.getInt("id_dep")
+                    rs.getDate("dateEmbauche"),
+                    rs.getString("statutEmp"),
+                    rs.getInt("idDep")
             ));
         }
 
@@ -100,23 +100,23 @@ public class ServiceUser implements IService<User> {
     }
 
     public User getUserById(int id) throws SQLException {
-        String sql = "SELECT * FROM `user` WHERE `id_emp` = ?";
+        String sql = "SELECT * FROM `user` WHERE `idEmp` = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
 
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
             return new User(
-                    rs.getInt("id_emp"),
-                    rs.getString("nom_emp"),
+                    rs.getInt("idEmp"),
+                    rs.getString("nomEmp"),
                     rs.getString("email"),
                     rs.getString("phone"),
                     rs.getString("role"),
                     rs.getString("position"),
                     rs.getDouble("salaire"),
-                    rs.getDate("date_embauche"),
-                    rs.getString("statut_emp"),
-                    rs.getInt("id_dep")
+                    rs.getDate("dateEmbauche"),
+                    rs.getString("statutEmp"),
+                    rs.getInt("idDep")
             );
         } else {
             return null; // Aucun utilisateur trouvé avec cet ID
