@@ -1,0 +1,33 @@
+/* Apply background color to the whole window */
+.root {
+    -fx-background-color: #f4f4f4;
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
+
+/* Style for labels */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Style for text fields and text areas */
+.text-field, .text-area {
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+}
