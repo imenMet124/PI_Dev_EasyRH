@@ -17,40 +17,40 @@ public class ServiceOffres implements IService<Offre>{
 
     @Override
     public void ajouter(Offre offre) throws SQLException {
-        String sql = "INSERT INTO `offre_emploi`(`titre_poste`, `description`, `date_publication`, `date_acceptation`, `time_to_hire`, `time_to_fill`, `statu_offre`, `departement`, `recruteur_responsable`) "
+        String sql = "INSERT INTO `offre_emploi`(`titrePoste`, `description`, `datePublication`, `dateAcceptation`, `timeToHire`, `timeToFill`, `statuOffre`, `departement`, `recruteurResponsable`) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        preparedStatement.setString(1, offre.getTitre_poste());
+        preparedStatement.setString(1, offre.getTitrePoste());
         preparedStatement.setString(2, offre.getDescription());
-        preparedStatement.setDate(3, offre.getDate_publication());  // Si c'est un Date (java.sql.Date)
-        preparedStatement.setDate(4, offre.getDate_acceptation());
-        preparedStatement.setInt(5, offre.getTime_to_hire());  // Si c'est un entier
-        preparedStatement.setInt(6, offre.getTime_to_fill());
-        preparedStatement.setString(7, offre.getStatu_offre());
+        preparedStatement.setDate(3, offre.getDatePublication());  // Si c'est un Date (java.sql.Date)
+        preparedStatement.setDate(4, offre.getDateAcceptation());
+        preparedStatement.setInt(5, offre.getTimeToHire());  // Si c'est un entier
+        preparedStatement.setInt(6, offre.getTimeToFill());
+        preparedStatement.setString(7, offre.getStatuOffre());
         preparedStatement.setString(8, offre.getDepartement());
-        preparedStatement.setString(9, offre.getRecruteur_responsable());
+        preparedStatement.setString(9, offre.getRecruteurResponsable());
 
         preparedStatement.executeUpdate();  // Exécuter l'insertion
 }
 
         @Override
     public void modifier(Offre offre) throws SQLException {
-            String sql = "UPDATE `offre_emploi` SET `titre_poste` = ?, `description` = ?, `date_publication` = ?, `date_acceptation` = ?, `time_to_hire` = ?, `time_to_fill` = ?, `statu_offre` = ?, `departement` = ?, `recruteur_responsable` = ? "
-                    + "WHERE `id_offre` = ?";
+            String sql = "UPDATE `offre_emploi` SET `titrePoste` = ?, `description` = ?, `datePublication` = ?, `dateAcceptation` = ?, `timeToHire` = ?, `timeToFill` = ?, `statuOffre` = ?, `departement` = ?, `recruteurResponsable` = ? "
+                    + "WHERE `idOffre` = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, offre.getTitre_poste());
+            preparedStatement.setString(1, offre.getTitrePoste());
             preparedStatement.setString(2, offre.getDescription());
-            preparedStatement.setDate(3, offre.getDate_publication());
-            preparedStatement.setDate(4, offre.getDate_acceptation());
-            preparedStatement.setInt(5, offre.getTime_to_hire());
-            preparedStatement.setInt(6, offre.getTime_to_fill());
-            preparedStatement.setString(7, offre.getStatu_offre());
+            preparedStatement.setDate(3, offre.getDatePublication());
+            preparedStatement.setDate(4, offre.getDateAcceptation());
+            preparedStatement.setInt(5, offre.getTimeToHire());
+            preparedStatement.setInt(6, offre.getTimeToFill());
+            preparedStatement.setString(7, offre.getStatuOffre());
             preparedStatement.setString(8, offre.getDepartement());
-            preparedStatement.setString(9, offre.getRecruteur_responsable());
-            preparedStatement.setInt(10, offre.getId_offre());
+            preparedStatement.setString(9, offre.getRecruteurResponsable());
+            preparedStatement.setInt(10, offre.getIdOffre());
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("L'offre a été mise à jour avec succès !");
@@ -61,7 +61,7 @@ public class ServiceOffres implements IService<Offre>{
 
     @Override
     public void supprimer(int id) throws SQLException {
-        String sql = "DELETE FROM `offre_emploi` WHERE `id_offre` = ?";
+        String sql = "DELETE FROM `offre_emploi` WHERE `idOffre` = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id); // ID de l'offre à supprimer
@@ -83,16 +83,16 @@ public class ServiceOffres implements IService<Offre>{
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             offres.add(new Offre(
-                    rs.getInt("id_offre"),
-                    rs.getString("titre_poste"),
+                    rs.getInt("idOffre"),
+                    rs.getString("titrePoste"),
                     rs.getString("description"),
-                    rs.getDate("date_publication"),
-                    rs.getDate("date_acceptation"),
-                    rs.getInt("time_to_hire"),
-                    rs.getInt("time_to_fill"),
-                    rs.getString("statu_offre"),
+                    rs.getDate("datePublication"),
+                    rs.getDate("dateAcceptation"),
+                    rs.getInt("timeToHire"),
+                    rs.getInt("timeToFill"),
+                    rs.getString("statuOffre"),
                     rs.getString("departement"),
-                    rs.getString("recruteur_responsable")
+                    rs.getString("recruteurResponsable")
             ));
         }
 

@@ -12,6 +12,6 @@
       <Label layoutX="173.0" layoutY="171.0" text="prenom" />
       <TextField fx:id="lbnom" layoutX="232.0" layoutY="78.0" />
       <TextField fx:id="lbprenom" layoutX="232.0" layoutY="167.0" />
-      <Button fx:id="bntnvalider" layoutX="255.0" layoutY="236.0" mnemonicParsing="false" onAction="#saveperson" text="Valider" />
+      <Button fx:id="bntnvalider" layoutX="255.0" layoutY="236.0" mnemonicParsing="false"  text="Valider" />
    </children>
 </AnchorPane>

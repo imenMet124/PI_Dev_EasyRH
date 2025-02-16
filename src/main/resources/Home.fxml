@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home">
+   <children>
+    <AnchorPane layoutX="356.0" layoutY="-40.0" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="0.0" />
+      <VBox layoutX="8.0" layoutY="5.0" prefHeight="391.0" prefWidth="100.0" styleClass="vbox-container" stylesheets="@Style.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <children>
+            <ImageView fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <HBox layoutX="108.0" layoutY="5.0" prefHeight="36.0" prefWidth="556.0" styleClass="hbox-style" stylesheets="@Style.css">
+         <children>
+            <SVGPath content="M21 12H9" />
+         </children>
+      </HBox>
+      <SVGPath content="M21 12H9" layoutX="249.0" layoutY="205.0" strokeWidth="3.0" />
+      <BorderPane layoutX="130.0" layoutY="59.0" prefHeight="132.0" prefWidth="247.0" styleClass="borderpane-style" stylesheets="@Style.css">
+         <right>
+            <ImageView fitHeight="94.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../../../../../Downloads/3ab781b2c9b071b98ac7e65060b4dd6a-removebg-preview%20(1).png" />
+               </image>
+            </ImageView>
+         </right>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Offre" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="386.0" layoutY="59.0" prefHeight="132.0" prefWidth="234.0" styleClass="borderpane-style">
+         <right>
+            <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../../../../../Downloads/6f2e1a28ef8ad0059f55fe3564099c21__1_-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </right>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Examiner Candidatures" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="130.0" layoutY="217.0" prefHeight="152.0" prefWidth="247.0" styleClass="borderpane-style">
+         <right>
+            <ImageView fitHeight="95.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../../../../../Downloads/77ed9f5ede037bfa55f3111298b86fda-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </right>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enchainer Entertien" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="394.0" layoutY="217.0" prefHeight="152.0" prefWidth="254.0" styleClass="borderpane-style">
+         <right>
+            <ImageView fitHeight="94.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../../../../../Downloads/640cbe6818e6d31521888fcf1a4ea3dc-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </right>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voir Staistiques" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

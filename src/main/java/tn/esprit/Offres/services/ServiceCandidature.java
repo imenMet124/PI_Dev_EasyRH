@@ -16,33 +16,75 @@ public class ServiceCandidature implements IService<Candidature> {
 
     @Override
     public void ajouter(Candidature candidature) throws SQLException {
-        String sql = "INSERT INTO candidature (idCandidat, idOffre, dateCandidature, statutCandidature, noteCandidat, commentaires, dateEntretien, resultatEntretien, etapeActuelle, dateMiseAJourStatut, recruteurResponsable) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(1, candidature.getIdCandidat());
-        preparedStatement.setInt(2, candidature.getIdOffre());
-        preparedStatement.setDate(3, Date.valueOf(candidature.getDateCandidature()));
-        preparedStatement.setString(4, candidature.getStatutCandidature().name());
-        preparedStatement.setInt(5, candidature.getNoteCandidat());
-        preparedStatement.setString(6, candidature.getCommentaires());
-        preparedStatement.setDate(7, candidature.getDateEntretien() != null ? Date.valueOf(candidature.getDateEntretien()) : null);
-        preparedStatement.setString(8, candidature.getResultatEntretien().name());
-        preparedStatement.setString(9, candidature.getEtapeActuelle().name());
-        preparedStatement.setDate(10, candidature.getDateMiseAJourStatut() != null ? Date.valueOf(candidature.getDateMiseAJourStatut()) : null);
-        preparedStatement.setString(11, candidature.getRecruteurResponsable());
-
-        preparedStatement.executeUpdate();
-
-        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            candidature.setIdCandidature(generatedKeys.getInt(1));
+        // Validation des entrées
+        if (candidature.getIdCandidat() <= 0 || candidature.getIdOffre() <= 0) {
+            throw new SQLException("Les IDs du candidat et de l'offre doivent être valides !");
         }
-    }
+
+        String sqlCandidat = "SELECT nomCandidat, prenomCandidat, emailCandidat, telephoneCandidat, posteActuel, departement, experienceInterne, competence, statuCandidat, disponibilite " +
+                "FROM candidat WHERE idCandidat = ?";
+        try (PreparedStatement psCandidat = connection.prepareStatement(sqlCandidat)) {
+            psCandidat.setInt(1, candidature.getIdCandidat());
+            try (ResultSet rsCandidat = psCandidat.executeQuery()) {
+                if (rsCandidat.next()) {
+                    // Injecter les informations du candidat dans l'objet Candidature
+                    candidature.setNom(rsCandidat.getString("nomCandidat"));
+                    candidature.setPrenom(rsCandidat.getString("prenomCandidat"));
+                    candidature.setEmail(rsCandidat.getString("emailCandidat"));
+                    candidature.setPhone(rsCandidat.getString("telephoneCandidat"));
+                    candidature.setPosition(rsCandidat.getString("posteActuel"));
+                    candidature.setDepartment(rsCandidat.getString("departement"));
+                    candidature.setExperienceInterne(rsCandidat.getString("experienceInterne"));
+                    candidature.setCompetence(rsCandidat.getString("competence"));
+                    candidature.setStatuCandidat(Candidature.StatuCandidat.valueOf(rsCandidat.getString("statuCandidat")));
+                    candidature.setDisponibilite(Candidature.Disponibilite.valueOf(rsCandidat.getString("disponibilite")));
+                } else {
+                    throw new SQLException("Le candidat avec l'ID " + candidature.getIdCandidat() + " n'existe pas !");
+                }
+            }
+        }
+        String sqlOffre = "SELECT titrePoste FROM offre_emploi WHERE idOffre = ?";
+        try (PreparedStatement psOffre = connection.prepareStatement(sqlOffre)) {
+            psOffre.setInt(1, candidature.getIdOffre());
+            try (ResultSet rsOffre = psOffre.executeQuery()) {
+                if (rsOffre.next()) {
+                    // Injecter les informations de l'offre dans l'objet Candidature
+                    candidature.setTitreOffre(rsOffre.getString("titrePoste"));
+                } else {
+                    throw new SQLException("L'offre avec l'ID " + candidature.getIdOffre() + " n'existe pas !");
+                }
+            }
+        }
+
+        String sql = "INSERT INTO candidature (idCandidat, idOffre, dateCandidature, statuCandidature, noteCandidat, commentaires, dateEntretien, resultatEntretien, etapeActuelle, dateMiseAJourStatut, recruteurResponsable) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, candidature.getIdCandidat());
+            preparedStatement.setInt(2, candidature.getIdOffre());
+            preparedStatement.setDate(3, Date.valueOf(candidature.getDateCandidature()));
+            preparedStatement.setString(4, candidature.getStatutCandidature().name());
+            preparedStatement.setInt(5, candidature.getNoteCandidat());
+            preparedStatement.setString(6, candidature.getCommentaires());
+            preparedStatement.setDate(7, candidature.getDateEntretien() != null ? Date.valueOf(candidature.getDateEntretien()) : null);
+            preparedStatement.setString(8, candidature.getResultatEntretien().name());
+            preparedStatement.setString(9, candidature.getEtapeActuelle().name());
+            preparedStatement.setDate(10, candidature.getDateMiseAJourStatut() != null ? Date.valueOf(candidature.getDateMiseAJourStatut()) : null);
+            preparedStatement.setString(11, candidature.getRecruteurResponsable());
+
+            preparedStatement.executeUpdate();
+
+            // Récupérer l'ID auto-généré
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    candidature.setIdCandidature(generatedKeys.getInt(1));
+                    System.out.println("Candidature ajoutée avec succès ! ID : " + candidature.getIdCandidature());
+                }
+            }
+        }}
 
     @Override
     public void modifier(Candidature candidature) throws SQLException {
-        String sql = "UPDATE candidature SET statutCandidature = ?, noteCandidat = ?, commentaires = ?, dateEntretien = ?, resultatEntretien = ?, etapeActuelle = ?, dateMiseAJourStatut = ?, recruteurResponsable = ? " +
+        String sql = "UPDATE candidature SET statuCandidature = ?, noteCandidat = ?, commentaires = ?, dateEntretien = ?, resultatEntretien = ?, etapeActuelle = ?, dateMiseAJourStatut = ?, recruteurResponsable = ? " +
                 "WHERE idCandidature = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -84,7 +126,7 @@ public class ServiceCandidature implements IService<Candidature> {
                     rs.getInt("idOffre"),
                     "",  // Placeholder pour le titre de l'offre
                     rs.getDate("dateCandidature").toLocalDate(),
-                    Candidature.StatutCandidature.valueOf(rs.getString("statutCandidature")),
+                    Candidature.StatutCandidature.valueOf(rs.getString("statuCandidature")),
                     rs.getInt("noteCandidat"),
                     rs.getString("commentaires"),
                     rs.getDate("dateEntretien") != null ? rs.getDate("dateEntretien").toLocalDate() : null,

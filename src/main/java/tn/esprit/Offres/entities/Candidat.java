@@ -4,7 +4,8 @@ import tn.esprit.Offres.entities.User; // Importez l'entité User
 
 public class Candidat {
     private int idCandidat;
-    private User user; // Référence à l'utilisateur (employé)
+    private User user;// Référence à l'utilisateur (employé)
+
     private String nom; // Nom de l'utilisateur
     private String prenom; // Prénom de l'utilisateur
     private String email; // Email de l'utilisateur
@@ -28,8 +29,9 @@ public class Candidat {
     public Candidat() {
     }
 
-    public Candidat(int idCandidat, User user, String nom, String prenom, String email, String phone, String position, String department, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
+    public Candidat(int idCandidat, User user,String nom, String prenom, String email, String phone, String position, String department, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
         this.idCandidat = idCandidat;
+
         this.user = user;
         this.nom = nom;
         this.prenom = prenom;
@@ -51,6 +53,8 @@ public class Candidat {
     public void setIdCandidat(int idCandidat) {
         this.idCandidat = idCandidat;
     }
+
+
 
     public User getUser() {
         return user;

@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceCandidat implements IService<Candidat> {
     private Connection connection;
@@ -86,47 +88,38 @@ public class ServiceCandidat implements IService<Candidat> {
     @Override
     public List<Candidat> afficher() throws SQLException {
         List<Candidat> candidats = new ArrayList<>();
-        String sql = "SELECT c.*, u.nomEmp, u.email, u.phone, u.position, u.idDep " +
-                "FROM `candidat` c " +
-                "JOIN `user` u ON c.id_user = u.idEmp"; // Jointure avec la table User
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rs = preparedStatement.executeQuery();
+        String sql = "SELECT idCandidat, nomCandidat, prenomCandidat, emailCandidat, telephoneCandidat, posteActuel, " +
+                "departement, experienceInterne, competence, statuCandidat, disponibilite " +
+                "FROM candidat";  // ✅ On ne sélectionne que les informations du candidat
 
-        while (rs.next()) {
-            // Créer un objet User avec les informations de l'utilisateur
-            User user = new User(
-                    rs.getInt("idEmp"),
-                    rs.getString("nomEmp"),
-                    rs.getString("email"),
-                    rs.getString("phone"),
-                    rs.getString("role"),
-                    rs.getString("position"),
-                    rs.getDouble("salaire"),
-                    rs.getDate("dateEmbauche"),
-                    rs.getString("statutEmp"),
-                    rs.getInt("idDep")
-            );
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet rs = preparedStatement.executeQuery()) {
 
-            // Créer un objet Candidat avec les informations de l'utilisateur
-            Candidat candidat = new Candidat(
-                    rs.getInt("idCandidat"), // ID de la candidature
-                    user, // Référence à l'utilisateur
-                    rs.getString("nomCandidat"), // Nom de l'utilisateur (injecté depuis la table user)
-                    rs.getString("prenomCandidat"), // Prénom de l'utilisateur (injecté depuis la table user)
-                    rs.getString("email"), // Email de l'utilisateur (injecté depuis la table user)
-                    rs.getString("phone"), // Téléphone de l'utilisateur (injecté depuis la table user)
-                    rs.getString("posteActuel"), // Poste actuel de l'utilisateur (injecté depuis la table user)
-                    rs.getString("departement"), // Département de l'utilisateur (injecté depuis la table user)
-                    rs.getString("experienceInterne"), // Expérience interne
-                    rs.getString("competence"), // Compétences
-                    Candidat.StatuCandidat.valueOf(rs.getString("statuCandidat")), // Statut de la candidature
-                    Candidat.Disponibilite.valueOf(rs.getString("disponibilite")) // Disponibilité
-            );
+            while (rs.next()) {
+                // Création de l'objet Candidat **sans User**
+                Candidat candidat = new Candidat(
+                        rs.getInt("idCandidat"),
+                        null, // ✅ On ne récupère pas User ici
+                        rs.getString("nomCandidat"),
+                        rs.getString("prenomCandidat"),
+                        rs.getString("emailCandidat"),
+                        rs.getString("telephoneCandidat"),
+                        rs.getString("posteActuel"),
+                        rs.getString("departement"),
+                        rs.getString("experienceInterne"),
+                        rs.getString("competence"),
+                        Candidat.StatuCandidat.valueOf(rs.getString("statuCandidat")),
+                        Candidat.Disponibilite.valueOf(rs.getString("disponibilite"))
+                );
 
-            // Ajouter le candidat à la liste
-            candidats.add(candidat);
+                // Ajouter le candidat à la liste
+                candidats.add(candidat);
+            }
         }
+
         return candidats;
     }
+
+
 }

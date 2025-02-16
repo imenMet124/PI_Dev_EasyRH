@@ -31,7 +31,10 @@ public class User {
             this.idDep = idDep;
         }
 
-        // Getters and Setters
+    public User(int key, String nomEmp, String email, String phone, String position, double salaire, java.sql.Date dateEmbauche, String statutEmp, int idDep) {
+    }
+
+    // Getters and Setters
         public int getIdEmp() {
             return idEmp;
         }

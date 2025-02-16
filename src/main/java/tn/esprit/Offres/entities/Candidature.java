@@ -3,6 +3,7 @@ package tn.esprit.Offres.entities;
 import java.time.LocalDate;
 
 public class Candidature {
+
     private int idCandidature;
 
     // Informations du candidat
@@ -32,6 +33,10 @@ public class Candidature {
     private EtapeCandidature etapeActuelle;
     private LocalDate dateMiseAJourStatut;
     private String recruteurResponsable;
+
+    public Candidature() {
+
+    }
 
     // Enums
     public enum StatutCandidature {
