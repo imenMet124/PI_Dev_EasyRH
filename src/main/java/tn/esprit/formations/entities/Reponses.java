@@ -1,5 +1,5 @@
 package tn.esprit.formations.entities;
 
-public class reponses {
+public class Reponses {
 
 }

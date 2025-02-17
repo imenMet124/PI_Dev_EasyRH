@@ -34,7 +34,15 @@ public class Formation {
         
     }
 
-    public Formation(String titreValue, String description) {
+    public Formation(int id, String titre, String description) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+    }
+
+    public Formation(String titre, String description) {
+        this.titre = titre;
+        this.description = description;
     }
 
     // Getters/Setters
@@ -92,5 +100,18 @@ public class Formation {
 
     public void setIdQuizFinal(int idQuizFinal) {
         this.idQuizFinal = idQuizFinal;
+    }
+
+    @Override
+    public String toString() {
+        return "Formation{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", description='" + description + '\'' +
+                ", modules=" + modules +
+                ", Inscriptions=" + Inscriptions +
+                ", competencesCibles=" + competencesCibles +
+                ", idQuizFinal=" + idQuizFinal +
+                '}';
     }
 }

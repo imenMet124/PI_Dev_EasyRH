@@ -1,11 +1,23 @@
 package tn.esprit.formations.test;
 
+import tn.esprit.formations.entities.Formation;
 import tn.esprit.formations.interfaces.FormationApp;
+import tn.esprit.formations.services.ServiceFormation;
 import tn.esprit.formations.utils.MyDatabase;
+
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args){
-        MyDatabase db = MyDatabase.getInstance();
-        FormationApp formationApp = new FormationApp();
+        ServiceFormation serviceFormation = new ServiceFormation();
+        try{
+            serviceFormation.afficher();
+            System.out.println("formation affiche");
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
     }
+
+
 }
