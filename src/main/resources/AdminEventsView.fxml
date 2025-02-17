@@ -1,102 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.text.Text?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.lang.String?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tn.esprit.evenement.controllers.AdminEventsController"
-            prefHeight="800.0" prefWidth="1200.0"
-            styleClass="root">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.evenement.controllers.AdminEventsController">
 
     <stylesheets>
-        <String fx:value="style.css"/>
+        <String fx:value="style.css" />
     </stylesheets>
 
-    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20"
-          styleClass="fade-in">
+    <VBox spacing="20" styleClass="fade-in" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
         <!-- En-tête moderne -->
-        <HBox styleClass="header-container" spacing="20" alignment="CENTER_LEFT">
-            <Text styleClass="header-title" text="Gestion des Événements"/>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-container">
+            <Text styleClass="header-title" text="Gestion des Événements" />
 
-            <Region HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS" />
 
-            <Button text="Ajouter" onAction="#handleAjouterEvent" styleClass="action-button">
+            <Button onAction="#handleAjouterEvent" styleClass="action-button" text="Ajouter">
                 <graphic>
-                    <FontAwesomeIconView glyphName="PLUS" size="16"/>
+                    <FontAwesomeIconView glyphName="PLUS" size="16" />
                 </graphic>
             </Button>
-            <Button text="Modifier" onAction="#handleModifierEvent" styleClass="action-button">
+            <Button onAction="#handleModifierEvent" styleClass="action-button" text="Modifier">
                 <graphic>
-                    <FontAwesomeIconView glyphName="EDIT" size="16"/>
+                    <FontAwesomeIconView glyphName="EDIT" size="16" />
                 </graphic>
             </Button>
-            <Button text="Supprimer" onAction="#handleSupprimerEvent" styleClass="action-button">
+            <Button onAction="#handleSupprimerEvent" styleClass="action-button" text="Supprimer">
                 <graphic>
-                    <FontAwesomeIconView glyphName="TRASH" size="16"/>
+                    <FontAwesomeIconView glyphName="TRASH" size="16" text="" />
                 </graphic>
             </Button>
-            <Button text="Actualiser" onAction="#handleRefresh" styleClass="action-button">
+            <Button onAction="#handleRefresh" styleClass="action-button" text="Actualiser">
                 <graphic>
-                    <FontAwesomeIconView glyphName="REFRESH" size="16"/>
+                    <FontAwesomeIconView glyphName="REFRESH" size="16" />
                 </graphic>
             </Button>
         </HBox>
 
         <!-- TableView -->
-        <TableView fx:id="eventTable" VBox.vgrow="ALWAYS" styleClass="fade-in">
+        <TableView fx:id="eventTable" styleClass="fade-in" VBox.vgrow="ALWAYS">
             <columns>
                 <!-- <TableColumn fx:id="idCol" text="ID" prefWidth="60"/> -->
-                <TableColumn fx:id="titreCol" text="Titre" prefWidth="200"/>
+                <TableColumn fx:id="titreCol" prefWidth="200" text="Titre" />
                 <!--   <TableColumn fx:id="descriptionCol" text="Description" prefWidth="300"/> -->
-                <TableColumn fx:id="dateCol" text="Date" prefWidth="150"/>
+                <TableColumn fx:id="dateCol" prefWidth="150" text="Date" />
                 <!--      <TableColumn fx:id="lieuCol" text="Lieu" prefWidth="150"/> -->
-                <TableColumn fx:id="capaciteCol" text="Capacité" prefWidth="100"/>
-                <TableColumn fx:id="participantsCol" text="Participants" prefWidth="100"/>
+                <TableColumn fx:id="capaciteCol" prefWidth="100" text="Capacité" />
+                <TableColumn fx:id="participantsCol" prefWidth="100" text="Participants" />
             </columns>
         </TableView>
 
         <!-- Section des détails -->
         <VBox styleClass="details-container, fade-in">
-            <Label text="Détails de l'événement" styleClass="details-title"/>
+            <Label styleClass="details-title" text="Détails de l'événement" />
 
-            <GridPane hgap="15" vgap="15" style="-fx-padding: 20 0;">
+            <GridPane hgap="15" style="-fx-padding: 20 0;" vgap="15">
                 <columnConstraints>
-                    <ColumnConstraints minWidth="150" prefWidth="200"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints minWidth="150" prefWidth="200" />
+                    <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
 
-                <Label text="Titre:" styleClass="label-field"
-                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="titreField" editable="false"
-                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label styleClass="label-field" text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Description:" styleClass="label-field"
-                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextArea fx:id="descriptionField" editable="false"
-                          prefRowCount="3" wrapText="true"
-                          GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label styleClass="label-field" text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Date:" styleClass="label-field"
-                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="datePicker" editable="false"
-                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label styleClass="label-field" text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Lieu:" styleClass="label-field"
-                       GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="lieuField" editable="false"
-                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label styleClass="label-field" text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="lieuField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="Capacité:" styleClass="label-field"
-                       GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextField fx:id="capaciteField" editable="false"
-                           GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label styleClass="label-field" text="Capacité:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="capaciteField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
         </VBox>
     </VBox>
