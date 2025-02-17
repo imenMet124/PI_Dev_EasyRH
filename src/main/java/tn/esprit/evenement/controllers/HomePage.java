@@ -11,7 +11,7 @@ public class HomePage extends Application {
     public void start(Stage primaryStage) {
         try {
             // Chargement du fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserEventsView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminEventsView.fxml"));
             AnchorPane root = loader.load();
 
             // Création de la scène et affectation de la racine
