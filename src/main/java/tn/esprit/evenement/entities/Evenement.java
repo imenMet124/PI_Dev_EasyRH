@@ -1,7 +1,7 @@
 package tn.esprit.evenement.entities;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Evenement {
     private int id;
@@ -10,16 +10,19 @@ public class Evenement {
     private Timestamp date;
     private String lieu;
     private int capacite;
+    private int nombreParticipants; // Nouvel attribut
+
 
     public Evenement() {}
 
-    public Evenement(int id, String titre, String description, Timestamp date, String lieu, int capacite) {
+    public Evenement(int id, String titre, String description, Timestamp date, String lieu, int capacite , int nombreParticipants) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.date = date;
         this.lieu = lieu;
         this.capacite = capacite;
+        this.nombreParticipants = nombreParticipants;
     }
     public Evenement(String titre, String description, Timestamp date, String lieu, int capacite) {
         this.titre = titre;
@@ -27,6 +30,7 @@ public class Evenement {
         this.date = date;
         this.lieu = lieu;
         this.capacite = capacite;
+        this.nombreParticipants = 0;
     }
 
     // Getters and Setters
@@ -48,6 +52,14 @@ public class Evenement {
     public int getCapacite() { return capacite; }
     public void setCapacite(int capacite) { this.capacite = capacite; }
 
+    public int getNombreParticipants() {
+        return nombreParticipants;
+    }
+
+    public void setNombreParticipants(int nombreParticipants) {
+        this.nombreParticipants = nombreParticipants;
+    }
+
     @Override
     public String toString() {
         return "Evenement{" +
@@ -59,4 +71,7 @@ public class Evenement {
                 ", capacite=" + capacite +
                 '}';
     }
+
+    public void incrementerParticipants() {
+        this.nombreParticipants++;}
 }

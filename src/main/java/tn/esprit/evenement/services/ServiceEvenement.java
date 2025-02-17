@@ -16,13 +16,15 @@ public class ServiceEvenement implements IService<Evenement> {
 
     @Override
     public void ajouter(Evenement evenement) throws SQLException {
-        String sql = "INSERT INTO `evenement`(`titre`, `description`, `date`, `lieu`, `capacite`) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO `evenement`(`titre`, `description`, `date`, `lieu`, `capacite`,`nombreParticipants`) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, evenement.getTitre());
         ps.setString(2, evenement.getDescription());
         ps.setTimestamp(3, evenement.getDate());
         ps.setString(4, evenement.getLieu());
         ps.setInt(5, evenement.getCapacite());
+        ps.setInt(6, evenement.getNombreParticipants());
+
         ps.executeUpdate();
     }
 
@@ -60,10 +62,17 @@ public class ServiceEvenement implements IService<Evenement> {
                     rs.getString("Description"),
                     rs.getTimestamp("Date"),  // Utilisation de getTimestamp() pour récupérer un DATETIME
                     rs.getString("Lieu"),
-                    rs.getInt("Capacite")
+                    rs.getInt("Capacite"),
+                    rs.getInt("NombreParticipants")
+
             );
             evenements.add(evenement);
         }
         return evenements;
     }
-}
+    public void incrementerParticipants(int evenementId) throws SQLException {
+        String sql = "UPDATE `evenement` SET `nombreParticipants` = `nombreParticipants` + 1 WHERE `id` = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, evenementId);
+        ps.executeUpdate();
+    }}
