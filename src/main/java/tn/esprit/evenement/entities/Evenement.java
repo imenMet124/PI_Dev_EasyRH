@@ -13,7 +13,7 @@ public class Evenement {
     private int nombreParticipants; // Nouvel attribut
 
 
-    public Evenement(String text, String descriptionFieldText, Date sqlDate, String lieuFieldText, int capacite) {}
+    public Evenement() {}
 
     public Evenement(int id, String titre, String description, Timestamp date, String lieu, int capacite , int nombreParticipants) {
         this.id = id;

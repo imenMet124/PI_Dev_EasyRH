@@ -168,13 +168,10 @@ public class AdminEventsController implements Initializable {
             showAlert("Erreur", "Veuillez sélectionner une date valide.");
             return null;
         }
-        // Convertir LocalDate en java.sql.Date (sans heure)
-        java.sql.Date sqlDate = java.sql.Date.valueOf(date);
-
         return new Evenement(
                 titreField.getText(),
                 descriptionField.getText(),
-                sqlDate, // Utiliser java.sql.Date au lieu de Timestamp
+                Timestamp.valueOf(date.atStartOfDay()),
                 lieuField.getText(),
                 Integer.parseInt(capaciteField.getText())
         );

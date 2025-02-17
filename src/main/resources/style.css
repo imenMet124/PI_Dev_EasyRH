@@ -8,22 +8,22 @@
 
 /* Styles de l'en-tête */
 .header-container {
-    -fx-background-color: #0056b3;
+    -fx-background-color: #0056b3; /* Bleu foncé */
     -fx-padding: 15;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 .header-title {
-    -fx-fill: #FFD700;
+    -fx-fill: #00bcd4; /* Bleu-vert */
     -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
 
 /* Boutons stylisés */
 Button {
-    -fx-background-color: #FFD700;
-    -fx-text-fill: #003366;
+    -fx-background-color: #009688; /* Vert */
+    -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8 16;
     -fx-background-radius: 5;
@@ -33,12 +33,12 @@ Button {
 }
 
 Button:hover {
-    -fx-background-color: #FFC107;
+    -fx-background-color: #00796b; /* Vert foncé au survol */
 }
 
 /* Boutons spécifiques "Ajouter", "Modifier", "Supprimer" */
 .button-modifier {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #00bcd4; /* Bleu-vert */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8 16;
@@ -48,11 +48,11 @@ Button:hover {
 }
 
 .button-modifier:hover {
-    -fx-background-color: #45a049;
+    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
 }
 
 .button-supprimer {
-    -fx-background-color: #f44336;
+    -fx-background-color: #ff4444; /* Rouge pour contraste */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8 16;
@@ -62,12 +62,12 @@ Button:hover {
 }
 
 .button-supprimer:hover {
-    -fx-background-color: #e53935;
+    -fx-background-color: #cc0000; /* Rouge foncé au survol */
 }
 
 /* Bouton Actualiser */
 .refresh-button {
-    -fx-background-color: #ff9800;
+    -fx-background-color: #00bcd4; /* Bleu-vert */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8 16;
@@ -76,7 +76,7 @@ Button:hover {
 }
 
 .refresh-button:hover {
-    -fx-background-color: #e68900;
+    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
 }
 
 /* TableView */
@@ -104,18 +104,18 @@ TableColumn {
 .details-title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0056b3;
+    -fx-text-fill: #0056b3; /* Bleu foncé */
 }
 
 /* Labels et champs de texte */
 .label-field {
     -fx-font-size: 14px;
-    -fx-text-fill: #003366;
+    -fx-text-fill: #003366; /* Bleu foncé */
     -fx-font-weight: bold;
 }
 
 TextField, TextArea, DatePicker {
-    -fx-border-color: #0056b3;
+    -fx-border-color: #0056b3; /* Bleu foncé */
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-padding: 5;
@@ -123,7 +123,7 @@ TextField, TextArea, DatePicker {
 
 /* Style des boutons d'action (ex: Inscription) */
 .inscription-button {
-    -fx-background-color: #2196F3;
+    -fx-background-color: #00bcd4; /* Bleu-vert */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 8 16;
@@ -132,22 +132,15 @@ TextField, TextArea, DatePicker {
 }
 
 .inscription-button:hover {
-    -fx-background-color: #1976D2;
+    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
 }
 
 /* TableView - Style des cellules */
 .table-view .column-header-background {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #009688; /* Vert */
 }
 
 .table-view .column-header {
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
-
-/* Animation pour fade-in */
-/*.fade-in {
-    -fx-opacity: 0;
-    -fx-transition: -fx-opacity 1s ease-in-out;
-}*/
-
