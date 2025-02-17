@@ -21,7 +21,7 @@ public class Main {
         ServiceCandidat serviceCandidat = new ServiceCandidat();
         ServiceOffres serviceOffres = new ServiceOffres();
         ServiceCandidature serviceCandidature = new ServiceCandidature();
-        Candidature candidature = new Candidature();
+       /* Candidature candidature = new Candidature();
         candidature.setIdCandidat(13); // ID du candidat existant
         candidature.setIdOffre(4); // ID de l'offre existante
         candidature.setDateCandidature(LocalDate.now()); // Date de candidature (aujourd'hui)
@@ -32,9 +32,36 @@ public class Main {
         candidature.setResultatEntretien(Candidature.ResultatEntretien.EN_ATTENTE); // Résultat de l'entretien
         candidature.setEtapeActuelle(Candidature.EtapeCandidature.ENTRETIEN_TECHNIQUE); // Étape actuelle
         candidature.setDateMiseAJourStatut(LocalDate.now()); // Date de mise à jour du statut
-        candidature.setRecruteurResponsable("Recruteur1"); // Recruteur responsable
+        candidature.setRecruteurResponsable("Recruteur1"); // Recruteur responsable*/
 
         try {
+            // Créer une nouvelle candidature
+
+
+            // Ajouter la candidature
+            Candidat candidat = new Candidat();
+            candidat.setIdCandidat(1);
+// Créer une offre
+            Offre offre = new Offre();
+            offre.setIdOffre(1); // ID d'une offre existante
+            // Créer une candidature
+            Candidature candidature = new Candidature();
+            candidature.setCandidat(candidat);
+            candidature.setOffre(offre);
+            candidature.setDateCandidature(LocalDate.now());
+            candidature.setStatutCandidature(Candidature.StatutCandidature.EN_ATTENTE);
+            candidature.setNoteCandidat(80);
+            candidature.setCommentaires("Candidature intéressante");
+            candidature.setResultatEntretien(Candidature.ResultatEntretien.EN_ATTENTE);
+            candidature.setEtapeActuelle(Candidature.EtapeCandidature.PRESELECTION);
+            candidature.setRecruteurResponsable("John Doe");
+            serviceCandidature.ajouter(candidature);
+
+
+
+
+
+
             // Créer un nouvel utilisateur
            /* User user = new User();
             user.setNomEmp("Dupont");
@@ -150,8 +177,8 @@ public class Main {
             for (Offre offre : offresApresModification) {
                 System.out.println(offre);
             }*/
-            serviceCandidature.ajouter(candidature);
-            System.out.println("Candidature ajoutée avec succès !");
+           /* serviceCandidature.ajouter(candidature);
+            System.out.println("Candidature ajoutée avec succès !");*/
 
         } catch (Exception e) {
             System.out.println("❌ Erreur lors de l'ajout de la candidature : " + e.getMessage());

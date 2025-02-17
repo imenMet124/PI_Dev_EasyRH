@@ -1,5 +1,6 @@
 package tn.esprit.Offres.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Offre {
@@ -52,6 +53,9 @@ public class Offre {
     }
 
     public Offre(String titrePoste, String description, java.sql.Date datePublication, String statuOffre, String departement, String recruteurResponsable) {
+    }
+
+    public Offre(int idOffre, String titrePoste, String description, LocalDate datePublication, String statut, String departement, String recruteurResponsable) {
     }
 
     public int getIdOffre() {

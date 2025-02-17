@@ -12,13 +12,13 @@ public class User {
         private double salaire;
         private Date dateEmbauche;
         private String statutEmp;
-        private int idDep;
+        private String department;
 
     public User() {
     }
 
     // Constructor
-        public User(int idEmp, String nomEmp, String email, String phone, String role, String position, double salaire, Date dateEmbauche, String statutEmp, int idDep) {
+        public User(int idEmp, String nomEmp, String email, String phone, String role, String position, double salaire, Date dateEmbauche, String statutEmp, String department) {
             this.idEmp = idEmp;
             this.nomEmp = nomEmp;
             this.email = email;
@@ -28,10 +28,10 @@ public class User {
             this.salaire = salaire;
             this.dateEmbauche = dateEmbauche;
             this.statutEmp = statutEmp;
-            this.idDep = idDep;
+            this.department = department;
         }
 
-    public User(int key, String nomEmp, String email, String phone, String position, double salaire, java.sql.Date dateEmbauche, String statutEmp, int idDep) {
+    public User(int key, String nomEmp, String email, String phone, String position, double salaire, java.sql.Date dateEmbauche, String statutEmp, String department) {
     }
 
     // Getters and Setters
@@ -107,12 +107,12 @@ public class User {
             this.statutEmp = statutEmp;
         }
 
-        public int getIdDep() {
-            return idDep;
+        public String getDepartment() {
+            return department;
         }
 
-        public void setIdDep(int idDep) {
-            this.idDep = idDep;
+        public void setIdDep(String department) {
+            this.department = department;
         }
 
         // toString method for easy printing
@@ -128,7 +128,7 @@ public class User {
                     ", salaire=" + salaire +
                     ", dateEmbauche=" + dateEmbauche +
                     ", statutEmp='" + statutEmp + '\'' +
-                    ", idDep=" + idDep +
+                    ", department=" + department +
                     '}';
         }
     }

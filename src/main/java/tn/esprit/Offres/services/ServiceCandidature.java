@@ -1,6 +1,8 @@
 package tn.esprit.Offres.services;
 
+import tn.esprit.Offres.entities.Candidat;
 import tn.esprit.Offres.entities.Candidature;
+import tn.esprit.Offres.entities.Offre;
 import tn.esprit.Offres.utils.Base;
 
 import java.sql.*;
@@ -15,52 +17,24 @@ public class ServiceCandidature implements IService<Candidature> {
     }
 
     @Override
+
+
     public void ajouter(Candidature candidature) throws SQLException {
         // Validation des entrées
-        if (candidature.getIdCandidat() <= 0 || candidature.getIdOffre() <= 0) {
-            throw new SQLException("Les IDs du candidat et de l'offre doivent être valides !");
+        if (candidature.getCandidat() == null || candidature.getOffre() == null) {
+            throw new SQLException("Le candidat et l'offre doivent être spécifiés !");
         }
 
-        String sqlCandidat = "SELECT nomCandidat, prenomCandidat, emailCandidat, telephoneCandidat, posteActuel, departement, experienceInterne, competence, statuCandidat, disponibilite " +
-                "FROM candidat WHERE idCandidat = ?";
-        try (PreparedStatement psCandidat = connection.prepareStatement(sqlCandidat)) {
-            psCandidat.setInt(1, candidature.getIdCandidat());
-            try (ResultSet rsCandidat = psCandidat.executeQuery()) {
-                if (rsCandidat.next()) {
-                    // Injecter les informations du candidat dans l'objet Candidature
-                    candidature.setNom(rsCandidat.getString("nomCandidat"));
-                    candidature.setPrenom(rsCandidat.getString("prenomCandidat"));
-                    candidature.setEmail(rsCandidat.getString("emailCandidat"));
-                    candidature.setPhone(rsCandidat.getString("telephoneCandidat"));
-                    candidature.setPosition(rsCandidat.getString("posteActuel"));
-                    candidature.setDepartment(rsCandidat.getString("departement"));
-                    candidature.setExperienceInterne(rsCandidat.getString("experienceInterne"));
-                    candidature.setCompetence(rsCandidat.getString("competence"));
-                    candidature.setStatuCandidat(Candidature.StatuCandidat.valueOf(rsCandidat.getString("statuCandidat")));
-                    candidature.setDisponibilite(Candidature.Disponibilite.valueOf(rsCandidat.getString("disponibilite")));
-                } else {
-                    throw new SQLException("Le candidat avec l'ID " + candidature.getIdCandidat() + " n'existe pas !");
-                }
-            }
-        }
-        String sqlOffre = "SELECT titrePoste FROM offre_emploi WHERE idOffre = ?";
-        try (PreparedStatement psOffre = connection.prepareStatement(sqlOffre)) {
-            psOffre.setInt(1, candidature.getIdOffre());
-            try (ResultSet rsOffre = psOffre.executeQuery()) {
-                if (rsOffre.next()) {
-                    // Injecter les informations de l'offre dans l'objet Candidature
-                    candidature.setTitreOffre(rsOffre.getString("titrePoste"));
-                } else {
-                    throw new SQLException("L'offre avec l'ID " + candidature.getIdOffre() + " n'existe pas !");
-                }
-            }
-        }
+        // Récupérer les objets Candidat et Offre
+        Candidat candidat = candidature.getCandidat();
+        Offre offre = candidature.getOffre();
 
+        // Ajouter la candidature à la base de données
         String sql = "INSERT INTO candidature (idCandidat, idOffre, dateCandidature, statuCandidature, noteCandidat, commentaires, dateEntretien, resultatEntretien, etapeActuelle, dateMiseAJourStatut, recruteurResponsable) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setInt(1, candidature.getIdCandidat());
-            preparedStatement.setInt(2, candidature.getIdOffre());
+            preparedStatement.setInt(1, candidat.getIdCandidat());
+            preparedStatement.setInt(2, offre.getIdOffre());
             preparedStatement.setDate(3, Date.valueOf(candidature.getDateCandidature()));
             preparedStatement.setString(4, candidature.getStatutCandidature().name());
             preparedStatement.setInt(5, candidature.getNoteCandidat());
@@ -80,7 +54,11 @@ public class ServiceCandidature implements IService<Candidature> {
                     System.out.println("Candidature ajoutée avec succès ! ID : " + candidature.getIdCandidature());
                 }
             }
-        }}
+        }
+    }
+
+
+
 
     @Override
     public void modifier(Candidature candidature) throws SQLException {
@@ -110,33 +88,65 @@ public class ServiceCandidature implements IService<Candidature> {
     }
 
     @Override
+
+
     public List<Candidature> afficher() throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
-        String sql = "SELECT * FROM candidature";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rs = preparedStatement.executeQuery();
+        String sql = "SELECT c.*, ca.*, o.* " +
+                "FROM candidature c " +
+                "JOIN candidat ca ON c.idCandidat = ca.idCandidat " +
+                "JOIN offre_emploi o ON c.idOffre = o.idOffre";
 
-        while (rs.next()) {
-            Candidature candidature = new Candidature(
-                    rs.getInt("idCandidature"),
-                    rs.getInt("idCandidat"),
-                    "", "", "", "", "", "", "", "",  // Placeholder values pour le candidat
-                    Candidature.StatuCandidat.EN_ATTENTE,
-                    Candidature.Disponibilite.IMMEDIATE,
-                    rs.getInt("idOffre"),
-                    "",  // Placeholder pour le titre de l'offre
-                    rs.getDate("dateCandidature").toLocalDate(),
-                    Candidature.StatutCandidature.valueOf(rs.getString("statuCandidature")),
-                    rs.getInt("noteCandidat"),
-                    rs.getString("commentaires"),
-                    rs.getDate("dateEntretien") != null ? rs.getDate("dateEntretien").toLocalDate() : null,
-                    Candidature.ResultatEntretien.valueOf(rs.getString("resultatEntretien")),
-                    Candidature.EtapeCandidature.valueOf(rs.getString("etapeActuelle")),
-                    rs.getDate("dateMiseAJourStatut") != null ? rs.getDate("dateMiseAJourStatut").toLocalDate() : null,
-                    rs.getString("recruteurResponsable")
-            );
-            candidatures.add(candidature);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet rs = preparedStatement.executeQuery()) {
+
+            while (rs.next()) {
+                // Créer l'objet Candidat
+                Candidat candidat = new Candidat(
+                        rs.getInt("idCandidat"),
+                        rs.getString("nomCandidat"),
+                        rs.getString("prenomCandidat"),
+                        rs.getString("emailCandidat"),
+                        rs.getString("telephoneCandidat"),
+                        rs.getString("posteActuel"),
+                        rs.getString("departement"),
+                        rs.getString("experienceInterne"),
+                        rs.getString("competence"),
+                        Candidat.StatuCandidat.valueOf(rs.getString("statuCandidat")),
+                        Candidat.Disponibilite.valueOf(rs.getString("disponibilite"))
+                );
+
+                // Créer l'objet Offre
+                Offre offre = new Offre(
+                        rs.getInt("idOffre"),
+                        rs.getString("titrePoste"),
+                        rs.getString("description"),
+                        rs.getDate("datePublication").toLocalDate(),
+                        rs.getString("statut"),
+                        rs.getString("departement"),
+                        rs.getString("recruteurResponsable")
+                );
+
+                // Créer l'objet Candidature
+                Candidature candidature = new Candidature(
+                        rs.getInt("idCandidature"),
+                        candidat,
+                        offre,
+                        rs.getDate("dateCandidature").toLocalDate(),
+                        Candidature.StatutCandidature.valueOf(rs.getString("statuCandidature")),
+                        rs.getInt("noteCandidat"),
+                        rs.getString("commentaires"),
+                        rs.getDate("dateEntretien") != null ? rs.getDate("dateEntretien").toLocalDate() : null,
+                        Candidature.ResultatEntretien.valueOf(rs.getString("resultatEntretien")),
+                        Candidature.EtapeCandidature.valueOf(rs.getString("etapeActuelle")),
+                        rs.getDate("dateMiseAJourStatut") != null ? rs.getDate("dateMiseAJourStatut").toLocalDate() : null,
+                        rs.getString("recruteurResponsable")
+                );
+
+                candidatures.add(candidature);
+            }
         }
+
         return candidatures;
     }
 }

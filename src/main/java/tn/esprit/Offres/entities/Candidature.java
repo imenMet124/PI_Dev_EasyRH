@@ -5,23 +5,8 @@ import java.time.LocalDate;
 public class Candidature {
 
     private int idCandidature;
-
-    // Informations du candidat
-    private int idCandidat;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String phone;
-    private String position;
-    private String department;
-    private String experienceInterne;
-    private String competence;
-    private StatuCandidat statuCandidat;
-    private Disponibilite disponibilite;
-
-    // Informations de l'offre
-    private int idOffre;
-    private String titreOffre;
+    private Candidat candidat; // Référence à l'objet Candidat
+    private Offre offre; // Référence à l'objet Offre
 
     // Informations de la candidature
     private LocalDate dateCandidature;
@@ -35,7 +20,6 @@ public class Candidature {
     private String recruteurResponsable;
 
     public Candidature() {
-
     }
 
     // Enums
@@ -51,35 +35,14 @@ public class Candidature {
         PRESELECTION, ENTRETIEN_TECHNIQUE, ENTRETIEN_FINAL
     }
 
-    public enum StatuCandidat {
-        EN_ATTENTE, EN_COURS, SHORTLISTE, ENTREVUE, ACCEPTE, REFUSE
-    }
-
-    public enum Disponibilite {
-        IMMEDIATE, UN_MOIS, DEUX_MOIS, TROIS_MOIS
-    }
-
     // Constructeur
-    public Candidature(int idCandidature, int idCandidat, String nom, String prenom, String email, String phone,
-                       String position, String department, String experienceInterne, String competence,
-                       StatuCandidat statuCandidat, Disponibilite disponibilite, int idOffre, String titreOffre,
-                       LocalDate dateCandidature, StatutCandidature statutCandidature, int noteCandidat,
-                       String commentaires, LocalDate dateEntretien, ResultatEntretien resultatEntretien,
-                       EtapeCandidature etapeActuelle, LocalDate dateMiseAJourStatut, String recruteurResponsable) {
+    public Candidature(int idCandidature, Candidat candidat, Offre offre, LocalDate dateCandidature,
+                       StatutCandidature statutCandidature, int noteCandidat, String commentaires,
+                       LocalDate dateEntretien, ResultatEntretien resultatEntretien, EtapeCandidature etapeActuelle,
+                       LocalDate dateMiseAJourStatut, String recruteurResponsable) {
         this.idCandidature = idCandidature;
-        this.idCandidat = idCandidat;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.phone = phone;
-        this.position = position;
-        this.department = department;
-        this.experienceInterne = experienceInterne;
-        this.competence = competence;
-        this.statuCandidat = statuCandidat;
-        this.disponibilite = disponibilite;
-        this.idOffre = idOffre;
-        this.titreOffre = titreOffre;
+        this.candidat = candidat;
+        this.offre = offre;
         this.dateCandidature = dateCandidature;
         this.statutCandidature = statutCandidature;
         this.noteCandidat = noteCandidat;
@@ -100,108 +63,20 @@ public class Candidature {
         this.idCandidature = idCandidature;
     }
 
-    public int getIdCandidat() {
-        return idCandidat;
+    public Candidat getCandidat() {
+        return candidat;
     }
 
-    public void setIdCandidat(int idCandidat) {
-        this.idCandidat = idCandidat;
+    public void setCandidat(Candidat candidat) {
+        this.candidat = candidat;
     }
 
-    public String getNom() {
-        return nom;
+    public Offre getOffre() {
+        return offre;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getExperienceInterne() {
-        return experienceInterne;
-    }
-
-    public void setExperienceInterne(String experienceInterne) {
-        this.experienceInterne = experienceInterne;
-    }
-
-    public String getCompetence() {
-        return competence;
-    }
-
-    public void setCompetence(String competence) {
-        this.competence = competence;
-    }
-
-    public StatuCandidat getStatuCandidat() {
-        return statuCandidat;
-    }
-
-    public void setStatuCandidat(StatuCandidat statuCandidat) {
-        this.statuCandidat = statuCandidat;
-    }
-
-    public Disponibilite getDisponibilite() {
-        return disponibilite;
-    }
-
-    public void setDisponibilite(Disponibilite disponibilite) {
-        this.disponibilite = disponibilite;
-    }
-
-    public int getIdOffre() {
-        return idOffre;
-    }
-
-    public void setIdOffre(int idOffre) {
-        this.idOffre = idOffre;
-    }
-
-    public String getTitreOffre() {
-        return titreOffre;
-    }
-
-    public void setTitreOffre(String titreOffre) {
-        this.titreOffre = titreOffre;
+    public void setOffre(Offre offre) {
+        this.offre = offre;
     }
 
     public LocalDate getDateCandidature() {

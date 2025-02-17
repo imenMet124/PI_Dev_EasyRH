@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Offres.controllers.CandidatController">
+   <children>
+      <VBox layoutX="8.0" layoutY="13.0" prefHeight="375.0" prefWidth="87.0" styleClass="vbox-container" stylesheets="@Style.css" />
+      <HBox layoutX="103.0" layoutY="14.0" prefHeight="55.0" prefWidth="483.0" styleClass="hbox-style" stylesheets="@Style.css" />
+      <TextField fx:id="nomC" editable="false" layoutX="112.0" layoutY="117.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="emailC" editable="false" layoutX="112.0" layoutY="172.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="telC" editable="false" layoutX="112.0" layoutY="227.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="posteC" editable="false" layoutX="112.0" layoutY="288.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="depC" editable="false" layoutX="112.0" layoutY="350.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="expC" layoutX="336.0" layoutY="125.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <TextField fx:id="compC" layoutX="336.0" layoutY="191.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
+      <Text layoutX="345.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Experience Interne" />
+      <Text layoutX="342.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Competence" />
+      <Text layoutX="346.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dispnibilité" />
+      <Text layoutX="119.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departement" />
+      <Text layoutX="121.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poste Actuel" />
+      <Text layoutX="119.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone" />
+      <Text layoutX="120.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="121.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+      <Button fx:id="confirmerC" layoutX="342.0" layoutY="314.0" mnemonicParsing="false" styleClass="button-modern" stylesheets="@Style.css" text="Confirmer Mes Informations" onAction="#onAjouterCandidatClick"/>
+      <ComboBox fx:id="dispC" layoutX="352.0" layoutY="264.0" prefWidth="150.0" styleClass="combobox-modern" stylesheets="@Style.css" />
+   </children>
+</AnchorPane>

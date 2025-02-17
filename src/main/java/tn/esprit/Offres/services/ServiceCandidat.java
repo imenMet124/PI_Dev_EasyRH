@@ -21,9 +21,9 @@ public class ServiceCandidat implements IService<Candidat> {
     }
 
     @Override
-    public void ajouter(Candidat candidat) throws SQLException {
-        String sql = "INSERT INTO `candidat`( `nomCandidat`, `prenomCandidat`, `emailCandidat`, `telephoneCandidat`, `posteActuel`, `departement`, `experienceInterne`, `competence`, `statuCandidat`, `disponibilite`,`id_user`) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public  void ajouter(Candidat candidat) throws SQLException {
+        String sql = "INSERT INTO `candidat`( `nomCandidat`, `prenomCandidat`, `emailCandidat`, `telephoneCandidat`, `posteActuel`, `departement`, `experienceInterne`, `competence`,  `disponibilite`,`id_user`) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -36,9 +36,9 @@ public class ServiceCandidat implements IService<Candidat> {
         preparedStatement.setString(6, candidat.getDepartment());
         preparedStatement.setString(7, candidat.getExperienceInterne());
         preparedStatement.setString(8, candidat.getCompetence());
-        preparedStatement.setString(9, candidat.getStatuCandidat().name());
-        preparedStatement.setString(10, candidat.getDisponibilite().name());
-        preparedStatement.setInt(11, candidat.getUser().getIdEmp()); // Référence à l'utilisateur
+
+        preparedStatement.setString(9, candidat.getDisponibilite().name());
+        preparedStatement.setInt(10, candidat.getUser().getIdEmp()); // Référence à l'utilisateur
 
         preparedStatement.executeUpdate();  // Exécuter l'insertion
 

@@ -17,6 +17,9 @@ public class Candidat {
     private StatuCandidat statuCandidat = StatuCandidat.EN_ATTENTE; // Statut de la candidature avec valeur initiale
     private Disponibilite disponibilite; // Disponibilité
 
+    public Candidat(int idCandidat, String nomCandidat, String prenomCandidat, String emailCandidat, String telephoneCandidat, String posteActuel, String departement, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
+    }
+
     public enum StatuCandidat {
         EN_ATTENTE, EN_COURS, SHORTLISTE, ENTREVUE, ACCEPTE, REFUSE
     }
@@ -29,7 +32,15 @@ public class Candidat {
     public Candidat() {
     }
 
-    public Candidat(int idCandidat, User user,String nom, String prenom, String email, String phone, String position, String department, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
+    public Candidat(String nom, String email, String phone, String department, String position) {
+        this.nom = nom;
+        this.email = email;
+        this.phone = phone;
+        this.department = department;
+        this.position = position;
+    }
+
+    public Candidat(int idCandidat, User user, String nom, String prenom, String email, String phone, String position, String department, String experienceInterne, String competence, StatuCandidat statuCandidat, Disponibilite disponibilite) {
         this.idCandidat = idCandidat;
 
         this.user = user;
@@ -147,6 +158,18 @@ public class Candidat {
     }
 
     public void setDisponibilite(Disponibilite disponibilite) {
+        this.disponibilite = disponibilite;
+    }
+
+    public Candidat(User user, String nom, String email, String phone, String position, String department, String experienceInterne, String competence, Disponibilite disponibilite) {
+        this.user = user;
+        this.nom = nom;
+        this.email = email;
+        this.phone = phone;
+        this.position = position;
+        this.department = department;
+        this.experienceInterne = experienceInterne;
+        this.competence = competence;
         this.disponibilite = disponibilite;
     }
 

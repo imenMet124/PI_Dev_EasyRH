@@ -16,7 +16,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void ajouter(User user) throws SQLException {
-        String sql = "INSERT INTO `user`(`idEmp`, `nomEmp`, `email`, `phone`, `role`, `position`, `salaire`, `dateEmbauche`, `statutEmp`, `idDep`) "
+        String sql = "INSERT INTO `user`(`department`, `nomEmp`, `email`, `phone`, `role`, `position`, `salaire`, `dateEmbauche`, `statutEmp`, `department`) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -30,15 +30,15 @@ public class ServiceUser implements IService<User> {
         preparedStatement.setDouble(7, user.getSalaire());
         preparedStatement.setDate(8, new java.sql.Date(user.getDateEmbauche().getTime()));
         preparedStatement.setString(9, user.getStatutEmp());
-        preparedStatement.setInt(10, user.getIdDep());
+        preparedStatement.setString(10, user.getDepartment());
 
         preparedStatement.executeUpdate();
     }
 
     @Override
     public void modifier(User user) throws SQLException {
-        String sql = "UPDATE `user` SET `nomEmp` = ?, `email` = ?, `phone` = ?, `role` = ?, `position` = ?, `salaire` = ?, `dateEmbauche` = ?, `statutEmp` = ?, `idDep` = ? "
-                + "WHERE `idEmp` = ?";
+        String sql = "UPDATE `user` SET `nomEmp` = ?, `email` = ?, `phone` = ?, `role` = ?, `position` = ?, `salaire` = ?, `dateEmbauche` = ?, `statutEmp` = ?, `department` = ? "
+                + "WHERE `department` = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user.getNomEmp());
@@ -49,8 +49,8 @@ public class ServiceUser implements IService<User> {
         preparedStatement.setDouble(6, user.getSalaire());
         preparedStatement.setDate(7, new java.sql.Date(user.getDateEmbauche().getTime()));
         preparedStatement.setString(8, user.getStatutEmp());
-        preparedStatement.setInt(9, user.getIdDep());
-        preparedStatement.setInt(10, user.getIdEmp());
+        preparedStatement.setString(9, user.getDepartment());
+
 
         int rowsUpdated = preparedStatement.executeUpdate();
         if (rowsUpdated > 0) {
@@ -62,7 +62,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void supprimer(int id) throws SQLException {
-        String sql = "DELETE FROM `user` WHERE `idEmp` = ?";
+        String sql = "DELETE FROM `user` WHERE `department` = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -83,7 +83,7 @@ public class ServiceUser implements IService<User> {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             users.add(new User(
-                    rs.getInt("idEmp"),
+                    rs.getInt("department"),
                     rs.getString("nomEmp"),
                     rs.getString("email"),
                     rs.getString("phone"),
@@ -92,7 +92,7 @@ public class ServiceUser implements IService<User> {
                     rs.getDouble("salaire"),
                     rs.getDate("dateEmbauche"),
                     rs.getString("statutEmp"),
-                    rs.getInt("idDep")
+                    rs.getString("department")
             ));
         }
 
@@ -100,14 +100,14 @@ public class ServiceUser implements IService<User> {
     }
 
     public User getUserById(int id) throws SQLException {
-        String sql = "SELECT * FROM `user` WHERE `idEmp` = ?";
+        String sql = "SELECT * FROM `user` WHERE `department` = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
 
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
             return new User(
-                    rs.getInt("idEmp"),
+                    rs.getInt("department"),
                     rs.getString("nomEmp"),
                     rs.getString("email"),
                     rs.getString("phone"),
@@ -116,7 +116,7 @@ public class ServiceUser implements IService<User> {
                     rs.getDouble("salaire"),
                     rs.getDate("dateEmbauche"),
                     rs.getString("statutEmp"),
-                    rs.getInt("idDep")
+                    rs.getString("department")
             );
         } else {
             return null; // Aucun utilisateur trouvé avec cet ID
