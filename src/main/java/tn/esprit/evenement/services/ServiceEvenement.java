@@ -52,21 +52,26 @@ public class ServiceEvenement implements IService<Evenement> {
     @Override
     public List<Evenement> afficher() throws SQLException {
         List<Evenement> evenements = new ArrayList<>();
-        String sql = "SELECT * FROM `evenement` WHERE `date` >= CURDATE()";  // Pour afficher les événements futurs
+        String sql = "SELECT * FROM `evenement`";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
+
+        System.out.println("Nombre d'événements récupérés : " + rs.getRow()); // Affiche le nombre de lignes
+
         while (rs.next()) {
             Evenement evenement = new Evenement(
                     rs.getInt("Id"),
                     rs.getString("Titre"),
                     rs.getString("Description"),
-                    rs.getTimestamp("Date"),  // Utilisation de getTimestamp() pour récupérer un DATETIME
+                    rs.getTimestamp("Date"),
                     rs.getString("Lieu"),
                     rs.getInt("Capacite"),
                     rs.getInt("NombreParticipants")
-
             );
             evenements.add(evenement);
+
+            // Afficher les détails de chaque événement pour vérifier
+            System.out.println("Événement récupéré : " + evenement.getTitre() + ", " + evenement.getDate());
         }
         return evenements;
     }

@@ -4,9 +4,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import tn.esprit.evenement.entities.Evenement;
 import tn.esprit.evenement.services.ServiceEvenement;
 import tn.esprit.evenement.services.ServiceParticipation;
@@ -28,6 +33,7 @@ public class AdminEventsController implements Initializable {
     @FXML private TableColumn<Evenement, String> lieuCol;
     @FXML private TableColumn<Evenement, Integer> capaciteCol;
     @FXML private TableColumn<Evenement, Integer> participantsCol;
+    @FXML private TableColumn<Evenement, Void> actionCol;
 
     @FXML private TextField titreField;
     @FXML private TextArea descriptionField;
@@ -65,10 +71,48 @@ public class AdminEventsController implements Initializable {
         capaciteCol.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         //  participantsCol.setCellValueFactory(new PropertyValueFactory<>("participants"));
         participantsCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNombreParticipants()).asObject());
+// Configurer la colonne "Action"
+        actionCol.setCellFactory(column -> new TableCell<Evenement, Void>() {
+            private final Button modifyButton = new Button("Modifier");
+            private final Button deleteButton = new Button("Supprimer");
+            private final Button detailsButton = new Button("Details");
 
+            {
+                // Style des boutons
+                modifyButton.getStyleClass().add("action-button");
+                deleteButton.getStyleClass().add("action-button");
+                detailsButton.getStyleClass().add("action-button");
+
+
+                // Actions des boutons
+                modifyButton.setOnAction(event -> {
+                    Evenement eventToModify = getTableView().getItems().get(getIndex());
+                    handleModifyEvent(eventToModify);
+                });
+
+                deleteButton.setOnAction(event -> {
+                    Evenement eventToDelete = getTableView().getItems().get(getIndex());
+                    handleDeleteEvent(eventToDelete);
+                });
+                detailsButton.setOnAction(event -> {
+                    Evenement eventToDetail = getTableView().getItems().get(getIndex());
+                    handleDetailsEvent(eventToDetail);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(new HBox(5, modifyButton, deleteButton,detailsButton));
+                }
+            }
+        });
     }
 
-    private void loadEvents() {
+    void loadEvents() {
         try {
             ObservableList<Evenement> events = FXCollections.observableArrayList(serviceEvenement.afficher());
             eventTable.setItems(events);
@@ -76,6 +120,7 @@ public class AdminEventsController implements Initializable {
             showAlert("Erreur", "Erreur lors du chargement des événements: " + e.getMessage());
         }
     }
+
 
     @FXML
     private void handleAjouterEvent() {
@@ -92,26 +137,7 @@ public class AdminEventsController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleModifierEvent() {
-        Evenement selected = eventTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            showAlert("Erreur", "Veuillez sélectionner un événement à modifier");
-            return;
-        }
 
-        if (validateFields()) {
-            try {
-                Evenement updated = getEventFromFields();
-                updated.setId(selected.getId());
-                serviceEvenement.modifier(updated);
-                loadEvents();
-                showAlert("Succès", "Événement modifié avec succès!");
-            } catch (SQLException e) {
-                showAlert("Erreur", "Erreur lors de la modification: " + e.getMessage());
-            }
-        }
-    }
 
     @FXML
     private void handleSupprimerEvent() {
@@ -142,10 +168,13 @@ public class AdminEventsController implements Initializable {
             showAlert("Erreur", "Veuillez sélectionner une date valide.");
             return null;
         }
+        // Convertir LocalDate en java.sql.Date (sans heure)
+        java.sql.Date sqlDate = java.sql.Date.valueOf(date);
+
         return new Evenement(
                 titreField.getText(),
                 descriptionField.getText(),
-                Timestamp.valueOf(date.atStartOfDay()),
+                sqlDate, // Utiliser java.sql.Date au lieu de Timestamp
                 lieuField.getText(),
                 Integer.parseInt(capaciteField.getText())
         );
@@ -168,7 +197,7 @@ public class AdminEventsController implements Initializable {
 
     }
 
-    private void clearFields() {
+    void clearFields() {
         titreField.clear();
         descriptionField.clear();
         datePicker.setValue(null);
@@ -218,5 +247,99 @@ public class AdminEventsController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void handleModifyEvent(Evenement event) {
+        try {
+            // Chargement du fichier FXML pour l'interface de modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifyEventView.fxml"));
+            AnchorPane root = loader.load();
+
+            // Récupérer le contrôleur
+            ModifyEventsController controller = loader.getController();
+            controller.setEventToModify(event); // Passer l'événement à modifier
+
+            // Création de la scène
+            Scene scene = new Scene(root, 800, 600);
+
+            // Création d'une nouvelle fenêtre
+            Stage modifyStage = new Stage();
+            modifyStage.setTitle("Modifier l'événement");
+            modifyStage.setScene(scene);
+
+            // Affichage de la fenêtre
+            modifyStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleAddEvent() {
+        try {
+            // Chargement du fichier FXML pour l'interface de modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddEventView.fxml"));
+            AnchorPane root = loader.load();
+
+            // Récupérer le contrôleur
+            ModifyEventsController controller = loader.getController();
+
+            // Création de la scène
+            Scene scene = new Scene(root, 800, 600);
+
+            // Création d'une nouvelle fenêtre
+            Stage modifyStage = new Stage();
+            modifyStage.setTitle("Modifier l'événement");
+            modifyStage.setScene(scene);
+
+            // Affichage de la fenêtre
+            modifyStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleDeleteEvent(Evenement event) {
+
+        try {
+            serviceEvenement.supprimer(event.getId());
+            loadEvents();
+            showAlert("Succès", "Événement supprimé avec succès!");
+        } catch (SQLException e) {
+            showAlert("Erreur", "Erreur lors de la suppression: " + e.getMessage());
+        }
+    }
+    private void handleDetailsEvent(Evenement event) {
+        try {
+            // Chargement du fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsEventView.fxml"));
+            AnchorPane root = loader.load();
+
+            // Récupérer les éléments de l'interface utilisateur
+            TextField titreField = (TextField) root.lookup("#titreField");
+            TextArea descriptionField = (TextArea) root.lookup("#descriptionField");
+            DatePicker datePicker = (DatePicker) root.lookup("#datePicker");
+            TextField lieuField = (TextField) root.lookup("#lieuField");
+            TextField capaciteField = (TextField) root.lookup("#capaciteField");
+
+            // Mettre à jour les champs avec les détails de l'événement
+            titreField.setText(event.getTitre());
+            descriptionField.setText(event.getDescription());
+            datePicker.setValue(event.getDate().toLocalDateTime().toLocalDate());
+            lieuField.setText(event.getLieu());
+            capaciteField.setText(String.valueOf(event.getCapacite()));
+
+            // Création de la scène
+            Scene scene = new Scene(root, 800, 600);
+
+            // Création d'une nouvelle fenêtre
+            Stage detailsStage = new Stage();
+            detailsStage.setTitle("Détails de l'événement");
+            detailsStage.setScene(scene);
+
+            // Affichage de la fenêtre
+            detailsStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
