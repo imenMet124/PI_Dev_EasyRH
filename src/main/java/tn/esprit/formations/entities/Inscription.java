@@ -1,5 +1,6 @@
 package tn.esprit.formations.entities;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Set;
 public class Inscription {
     private int id;
     private int idUtilisateur; // a remplacer par objet User plus tard
-    private Formation formation;
+    private int idFormation;
     private Set<Integer> modulesCompletes = new HashSet<>();
     private Map<Integer, Integer> scoresQuiz = new HashMap<>(); // <ID_Quiz, Score>
 
@@ -32,16 +33,12 @@ public class Inscription {
         this.idUtilisateur = idUtilisateur;
     }
 
-    public Formation getFormation() {
-        return formation;
+    public int getIdFormation() {
+        return idFormation;
     }
 
-    public void setFormation(Formation formation) {
-        this.formation = formation;
-    }
-
-    public Set<Integer> getModulesCompletes() {
-        return modulesCompletes;
+    public void setIdFormation(int idFormation) {
+        this.idFormation = idFormation;
     }
 
     public void setModulesCompletes(Set<Integer> modulesCompletes) {
@@ -54,5 +51,9 @@ public class Inscription {
 
     public void setScoresQuiz(Map<Integer, Integer> scoresQuiz) {
         this.scoresQuiz = scoresQuiz;
+    }
+
+    public Set<Integer> getModulesCompletes() {
+        return modulesCompletes;
     }
 }

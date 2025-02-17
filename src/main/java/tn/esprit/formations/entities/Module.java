@@ -4,15 +4,24 @@ public class Module {
     private int id;
     private String titre;
     private String contenu; // chemin vers fichier
-    private Quiz quizModule; // Optionnel
+    private int idQuizModule;
 
+    //Constructeur
+    public Module() {}
+
+    public Module(int id, String titre, String contenu, int quizModule) {
+        this.id = id;
+        this.titre = titre;
+        this.contenu = contenu;
+        this.idQuizModule = quizModule;
+    }
     // Getters/Setters
-    public Quiz getQuizModule() {
-        return quizModule;
+    public int getIdQuizModule() {
+        return idQuizModule;
     }
 
-    public void setQuizModule(Quiz quiz) {
-        this.quizModule = quiz;
+    public void setIdQuizModule(int quiz) {
+        this.idQuizModule = quiz;
     }
 
     public int getId() {
@@ -39,3 +48,7 @@ public class Module {
         this.contenu = contenu;
     }
 }
+/* moduleApp
+
+
+ */

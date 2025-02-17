@@ -1,4 +1,4 @@
-package tn.esprit.formations;
+package tn.esprit.formations.entities;
 
 public enum CompetencesCibles {
     JAVA,

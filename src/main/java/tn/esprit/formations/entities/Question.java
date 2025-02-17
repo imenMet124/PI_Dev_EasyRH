@@ -1,15 +1,14 @@
 package tn.esprit.formations.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
     private int id;
     private String texte;
-    private List<String> optionsReponse; // Vide pour questions ouvertes
-    private String reponseCorrecte;
+    private type type;
+    private List<reponses> options= new ArrayList<>();
+    private int idQuiz;
 
-    // Méthode pour vérifier la réponse
-    public boolean estCorrecte(String reponse) {
-        return reponseCorrecte.equalsIgnoreCase(reponse);
-    }
+    enum type{RADIO, CHECKBOX}
 }
