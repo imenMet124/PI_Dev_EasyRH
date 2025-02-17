@@ -14,6 +14,21 @@ public class ServiceOffres implements IService<Offre>{
         connection = Base.getInstance().getConnection();
     }
 
+    public void ajouterModel(Offre offre) throws SQLException {
+        String query = "INSERT INTO offre_emploi (titrePoste, description, datePublication, statuOffre, departement, recruteurResponsable) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, offre.getTitrePoste());
+            preparedStatement.setString(2, offre.getDescription());
+            preparedStatement.setDate(3, offre.getDatePublication());
+            preparedStatement.setString(4, offre.getStatuOffre());
+            preparedStatement.setString(5, offre.getDepartement());
+            preparedStatement.setString(6, offre.getRecruteurResponsable());
+
+            preparedStatement.executeUpdate();
+        }
+
+
+    }
 
     @Override
     public void ajouter(Offre offre) throws SQLException {

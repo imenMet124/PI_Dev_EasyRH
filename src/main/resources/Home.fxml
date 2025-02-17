@@ -32,7 +32,7 @@
          </children>
       </HBox>
       <SVGPath content="M21 12H9" layoutX="249.0" layoutY="205.0" strokeWidth="3.0" />
-      <BorderPane layoutX="130.0" layoutY="59.0" prefHeight="132.0" prefWidth="247.0" styleClass="borderpane-style" stylesheets="@Style.css">
+      <BorderPane fx:id="ajoutC" layoutX="130.0" layoutY="59.0" prefHeight="132.0" prefWidth="247.0" styleClass="borderpane-style" stylesheets="@Style.css">
          <right>
             <ImageView fitHeight="94.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
@@ -44,7 +44,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Offre" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane layoutX="386.0" layoutY="59.0" prefHeight="132.0" prefWidth="234.0" styleClass="borderpane-style">
+      <BorderPane fx:id="candidatureC" layoutX="386.0" layoutY="59.0" prefHeight="132.0" prefWidth="234.0" styleClass="borderpane-style">
          <right>
             <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
@@ -56,7 +56,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Examiner Candidatures" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane layoutX="130.0" layoutY="217.0" prefHeight="152.0" prefWidth="247.0" styleClass="borderpane-style">
+      <BorderPane fx:id="entretienC" layoutX="130.0" layoutY="217.0" prefHeight="152.0" prefWidth="247.0" styleClass="borderpane-style">
          <right>
             <ImageView fitHeight="95.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
@@ -68,7 +68,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enchainer Entertien" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane layoutX="394.0" layoutY="217.0" prefHeight="152.0" prefWidth="254.0" styleClass="borderpane-style">
+      <BorderPane fx:id="statC" layoutX="394.0" layoutY="217.0" prefHeight="152.0" prefWidth="254.0" styleClass="borderpane-style">
          <right>
             <ImageView fitHeight="94.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>

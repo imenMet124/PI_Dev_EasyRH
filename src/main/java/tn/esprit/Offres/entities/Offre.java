@@ -17,6 +17,15 @@ public class Offre {
     public Offre() {
     }
 
+    public Offre(String titrePoste, String description, Date datePublication, String statuOffre, String departement, String recruteurResponsable) {
+        this.titrePoste = titrePoste;
+        this.description = description;
+        this.datePublication = datePublication;
+        this.statuOffre = statuOffre;
+        this.departement = departement;
+        this.recruteurResponsable = recruteurResponsable;
+    }
+
     public Offre(String titrePoste, String description, Date datePublication, Date dateAcceptation, int timeToHire, int timeToFill, String statuOffre, String departement, String recruteurResponsable) {
         this.titrePoste = titrePoste;
         this.description = description;
@@ -40,6 +49,9 @@ public class Offre {
         this.statuOffre = statuOffre;
         this.departement = departement;
         this.recruteurResponsable = recruteurResponsable;
+    }
+
+    public Offre(String titrePoste, String description, java.sql.Date datePublication, String statuOffre, String departement, String recruteurResponsable) {
     }
 
     public int getIdOffre() {

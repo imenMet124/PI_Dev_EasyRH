@@ -17,7 +17,9 @@ public class HomPage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/inscription.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Ajout.fxml"));
+            Parent root = loader.load();  // Charger le fichier FXML
+            AjoutController controller = loader.getController();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -117,23 +117,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 10); /* Ombre plus prononcée */
 }
 
-.button-modern:pressed {
-    -fx-background-color: linear-gradient(to bottom, #357abd, #2a5f8a); /* Dégradé plus foncé au clic */
-    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5); /* Effet d'ombre intérieure */
-}
 
-.button-modern:focused {
-    -fx-border-color: #ffffff;     /* Bordure blanche lorsqu'il est focusé */
-    -fx-effect: dropshadow(three-pass-box, rgba(74,144,226,0)}
-    .list-view-modern {
-    -fx-background-color: #ffffff; /* Fond blanc */
-    -fx-background-radius: 10px;   /* Coins arrondis */
-    -fx-border-radius: 10px;       /* Coins arrondis pour la bordure */
-    -fx-border-color: #d0d0d0;     /* Bordure grise claire */
-    -fx-border-width: 1px;         /* Épaisseur fine de la bordure */
-    -fx-padding: 5px;              /* Espacement intérieur */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5); /* Ombre portée légère */
-}
 
 .list-view-modern .list-cell {
     -fx-background-color: transparent; /* Fond transparent pour les cellules */
@@ -174,15 +158,7 @@
     -fx-padding: 10px;                 /* Espacement intérieur des cellules */
 }
 
-.list-view-modern .list-cell:filled:hover {
-    -fx-background-color: #f0f0f0; /* Fond gris clair au survol */
-    -fx-text-fill: #000000;        /* Couleur du texte au survol */
-}
 
-.list-view-modern .list-cell:filled:selected {
-    -fx-background-color: #4a90e2; /* Fond bleu pour la sélection */
-    -fx-text-fill: white;          /* Texte blanc pour la sélection */
-}
 
 .list-view-modern .list-cell:empty {
     -fx-background-color: transparent; /* Fond transparent pour les cellules vides */
