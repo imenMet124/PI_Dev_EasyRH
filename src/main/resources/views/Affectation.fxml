@@ -5,7 +5,7 @@
 <?import javafx.geometry.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.tache.controllers.AffectationController">
-    <VBox spacing="20" alignment="CENTER" prefWidth="800" prefHeight="600"
+    <VBox spacing="15" alignment="CENTER" prefWidth="800" prefHeight="600"
           AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
           AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
 
@@ -13,6 +13,16 @@
         <Label text="📋 Gestion des Affectations"
                style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;
                       -fx-padding: 5; -fx-underline: true;"/>
+
+        <!-- ✅ Search Bar -->
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <TextField fx:id="searchField" promptText="🔍 Rechercher par employé ou tâche..."
+                       style="-fx-padding: 8; -fx-font-size: 14px; -fx-border-radius: 6; -fx-background-radius: 6;
+                              -fx-border-color: #BDC3C7; -fx-background-color: white;"/>
+            <Button text="Rechercher" onAction="#rechercherAffectation"
+                    style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-padding: 8 15;
+                           -fx-font-size: 14px; -fx-border-radius: 6; -fx-background-radius: 6;"/>
+        </HBox>
 
         <!-- ✅ Styled TableView for Affectations -->
         <StackPane style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 6;
@@ -28,7 +38,13 @@
                     <TableColumn fx:id="tacheCol" text="🛠️ Tâche" prefWidth="250"
                                  style="-fx-alignment: CENTER-LEFT; -fx-font-size: 14px; -fx-font-weight: bold;"/>
 
+                    <TableColumn fx:id="deadlineCol" text="⏳ Deadline" prefWidth="150"
+                                 style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
                     <TableColumn fx:id="dateCol" text="📅 Date Affectation" prefWidth="150"
+                                 style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                    <TableColumn fx:id="statutCol" text="✔ Statut" prefWidth="120"
                                  style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;"/>
                 </columns>
             </TableView>
@@ -42,6 +58,10 @@
 
             <Button fx:id="retirerBtn" text="🗑️ Retirer" onAction="#retirerEmployeTache"
                     style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-padding: 8 15;
+                           -fx-font-size: 14px; -fx-border-radius: 6; -fx-background-radius: 6;"/>
+
+            <Button fx:id="terminerTacheBtn" text="✔ Terminer" onAction="#terminerTache"
+                    style="-fx-background-color: #17A2B8; -fx-text-fill: white; -fx-padding: 8 15;
                            -fx-font-size: 14px; -fx-border-radius: 6; -fx-background-radius: 6;"/>
         </HBox>
 

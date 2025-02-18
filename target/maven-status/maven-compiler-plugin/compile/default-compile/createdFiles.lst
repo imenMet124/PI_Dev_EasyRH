@@ -19,6 +19,7 @@ tn\esprit\tache\entities\Projet.class
 tn\esprit\tache\services\IEmployeService.class
 tn\esprit\tache\services\IAffectationService.class
 tn\esprit\tache\services\IDepartementService.class
+tn\esprit\tache\controllers\AffectationController$1.class
 tn\esprit\tache\controllers\AffectationFormController.class
 tn\esprit\tache\entities\Departement.class
 tn\esprit\tache\controllers\TacheController.class

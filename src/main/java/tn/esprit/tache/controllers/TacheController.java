@@ -31,7 +31,8 @@ public class TacheController {
     private final TacheService tacheService = new TacheService();
     private final ProjetService projetService = new ProjetService();
     private ObservableList<Tache> tacheList;
-
+    @FXML
+    private TextField searchField;
     @FXML
     public void initialize() {
         // ✅ Liaison des colonnes avec les données de l'entité Tache
@@ -103,5 +104,29 @@ public class TacheController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.show();
+    }
+
+    @FXML
+    private void rechercherTache() {
+        String searchText = searchField.getText().toLowerCase().trim();
+
+        if (searchText.isEmpty()) {
+            loadTaches();
+            return;
+        }
+
+        List<Tache> allTaches = tacheService.getAllTaches();
+        ObservableList<Tache> filteredList = FXCollections.observableArrayList();
+
+        for (Tache tache : allTaches) {
+            String titre = tache.getTitreTache().toLowerCase();
+            String projet = tache.getProjet().getNomProjet().toLowerCase();
+
+            if (titre.contains(searchText) || projet.contains(searchText)) {
+                filteredList.add(tache);
+            }
+        }
+
+        tacheTable.setItems(filteredList);
     }
 }

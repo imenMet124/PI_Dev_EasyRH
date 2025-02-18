@@ -136,6 +136,16 @@ public class TacheService implements ITacheService {
         return tacheMap;
     }
 
+    public void terminerTache(int idTache) {
+        String sql = "UPDATE tache SET statut_tache = 'Terminé' WHERE id_tache = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idTache);
+            ps.executeUpdate();
+            System.out.println("✅ Tâche terminée avec succès.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

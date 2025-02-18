@@ -150,4 +150,19 @@ public class EmployeService implements IEmployeService {
         return -1; // Retourne -1 si non trouvé
     }
 
+    public boolean emailExiste(String email) {
+        String sql = "SELECT COUNT(*) FROM employe WHERE email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                return true; // Email existe déjà
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Email n'existe pas
+    }
+
+
 }

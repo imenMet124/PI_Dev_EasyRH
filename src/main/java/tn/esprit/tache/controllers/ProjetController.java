@@ -1,6 +1,7 @@
 package tn.esprit.tache.controllers;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import tn.esprit.tache.services.ProjetService;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjetController {
 
@@ -26,6 +28,7 @@ public class ProjetController {
     @FXML private TableColumn<Projet, Date> debutCol;
     @FXML private TableColumn<Projet, Date> finCol;
 
+    @FXML private TextField searchField;
     @FXML private Button addProjetBtn, editProjetBtn, deleteProjetBtn;
 
     private final ProjetService projetService = new ProjetService();
@@ -35,20 +38,38 @@ public class ProjetController {
     public void initialize() {
         // ✅ Bind TableView columns to Projet attributes
         idCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getIdProjet()));
-        nomCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNomProjet()));
-        descCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDescProjet()));
-        statutCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStatutProjet()));
+        nomCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNomProjet()));
+        descCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescProjet()));
+        statutCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatutProjet()));
         debutCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDateDebutProjet()));
         finCol.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDateFinProjet()));
 
-        // ✅ Load Projects into TableView
+        // ✅ Charger les projets
         loadProjets();
+
+        // ✅ Appliquer la recherche en temps réel
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterProjets(newValue));
     }
 
     private void loadProjets() {
         List<Projet> projets = projetService.getAllProjets();
         projetList = FXCollections.observableArrayList(projets);
         projetTable.setItems(projetList);
+    }
+
+    // ✅ Filtrer les projets selon la recherche
+    private void filterProjets(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            projetTable.setItems(projetList); // Si vide, afficher tout
+        } else {
+            String lowerKeyword = keyword.toLowerCase();
+            List<Projet> filteredList = projetList.stream()
+                    .filter(projet -> projet.getNomProjet().toLowerCase().contains(lowerKeyword) ||
+                            projet.getDescProjet().toLowerCase().contains(lowerKeyword) ||
+                            projet.getStatutProjet().toLowerCase().contains(lowerKeyword))
+                    .collect(Collectors.toList());
+            projetTable.setItems(FXCollections.observableArrayList(filteredList));
+        }
     }
 
     @FXML
@@ -89,7 +110,7 @@ public class ProjetController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            // ✅ Refresh table after adding/editing a project
+            // ✅ Rafraîchir après ajout/modification
             loadProjets();
         } catch (IOException e) {
             e.printStackTrace();

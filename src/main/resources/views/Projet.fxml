@@ -13,6 +13,15 @@
             <Label text="📌 Gestion des Projets"
                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;
                           -fx-padding: 5; -fx-underline: true;"/>
+
+            <!-- ✅ Search Bar -->
+            <HBox spacing="10" alignment="CENTER"
+                  style="-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 6;
+                         -fx-background-radius: 6; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 3);">
+                <TextField fx:id="searchField" promptText="🔍 Rechercher un projet..."
+                           style="-fx-pref-width: 250px; -fx-padding: 8; -fx-border-radius: 6;
+                                  -fx-background-radius: 6; -fx-font-size: 14px;"/>
+            </HBox>
         </VBox>
     </top>
 
@@ -33,8 +42,7 @@
 
                     <!-- ✅ Status Column with Emojis -->
                     <TableColumn fx:id="statutCol" text="Statut" prefWidth="120"
-                                 style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;">
-                    </TableColumn>
+                                 style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;"/>
 
                     <TableColumn fx:id="debutCol" text="Date Début" prefWidth="120"
                                  style="-fx-alignment: CENTER; -fx-font-size: 14px; -fx-font-weight: bold;"/>

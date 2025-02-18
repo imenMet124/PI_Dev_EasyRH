@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TacheFormController {
 
@@ -50,10 +51,10 @@ public class TacheFormController {
             }
 
             projetCombo.setValue(tache.getProjet().getNomProjet());
-        }else {
-            // Creating a new task
-            statutCombo.setValue("En cours");  // ✅ Set "En cours" as the default
-            statutCombo.setDisable(true);      // ✅ Prevent user from changing it
+        } else {
+            // Création d'une nouvelle tâche
+            statutCombo.setValue("En cours");  // ✅ Défaut "En cours"
+            statutCombo.setDisable(true);      // ✅ L'utilisateur ne peut pas le modifier
         }
     }
 
@@ -66,42 +67,82 @@ public class TacheFormController {
                 .toLocalDate();
     }
 
-
-
     @FXML
     private void saveTache() {
-        if (titreField.getText().isEmpty() || projetCombo.getValue() == null || deadlinePicker.getValue() == null) {
-            showAlert("Erreur", "Veuillez remplir tous les champs.");
-            return;
+        if (isInputValid()) {
+            Projet selectedProjet = projetService.getProjetByName(projetCombo.getValue());
+            Date deadline = Date.valueOf(deadlinePicker.getValue());
+
+            if (tacheToEdit == null) { // Ajouter une nouvelle tâche
+                Tache newTache = new Tache(
+                        titreField.getText(),
+                        descField.getText(),
+                        prioriteCombo.getValue(),
+                        statutCombo.getValue(),
+                        deadline,
+                        0,
+                        selectedProjet
+                );
+                tacheService.ajouterTache(newTache);
+            } else { // Modifier une tâche existante
+                tacheToEdit.setTitreTache(titreField.getText());
+                tacheToEdit.setDescTache(descField.getText());
+                tacheToEdit.setPriorite(prioriteCombo.getValue());
+                tacheToEdit.setStatutTache(statutCombo.getValue());
+                tacheToEdit.setDeadline(deadline);
+                tacheToEdit.setProjet(selectedProjet);
+                tacheService.modifierTache(tacheToEdit);
+            }
+
+            closeForm();
+        }
+    }
+
+    private boolean isInputValid() {
+        StringBuilder errorMessage = new StringBuilder();
+
+        // Vérification du titre (lettres, chiffres et espaces uniquement)
+        if (titreField.getText() == null || titreField.getText().trim().isEmpty()) {
+            errorMessage.append("Le titre de la tâche ne peut pas être vide.\n");
+        } else if (!Pattern.matches("^[A-Za-z0-9À-ÖØ-öø-ÿ\\s-]+$", titreField.getText())) {
+            errorMessage.append("Le titre de la tâche ne peut contenir que des lettres, chiffres et espaces.\n");
         }
 
-        Projet selectedProjet = projetService.getProjetByName(projetCombo.getValue());
-
-        // Conversion correcte de la date
-        Date deadline = Date.valueOf(deadlinePicker.getValue());
-
-        if (tacheToEdit == null) { // Ajouter une nouvelle tâche
-            Tache newTache = new Tache(
-                    titreField.getText(),
-                    descField.getText(),
-                    prioriteCombo.getValue(),
-                    statutCombo.getValue(),
-                    deadline,
-                    0,
-                    selectedProjet
-            );
-            tacheService.ajouterTache(newTache);
-        } else { // Modifier une tâche existante
-            tacheToEdit.setTitreTache(titreField.getText());
-            tacheToEdit.setDescTache(descField.getText());
-            tacheToEdit.setPriorite(prioriteCombo.getValue());
-            tacheToEdit.setStatutTache(statutCombo.getValue());
-            tacheToEdit.setDeadline(deadline);
-            tacheToEdit.setProjet(selectedProjet);
-            tacheService.modifierTache(tacheToEdit);
+        // Vérification de la description (minimum 10 caractères)
+        if (descField.getText() == null || descField.getText().trim().isEmpty()) {
+            errorMessage.append("La description de la tâche ne peut pas être vide.\n");
+        } else if (descField.getText().trim().length() < 10) {
+            errorMessage.append("La description doit contenir au moins 10 caractères.\n");
         }
 
-        closeForm();
+        // Vérification de la priorité
+        if (prioriteCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner une priorité.\n");
+        }
+
+        // Vérification du statut
+        if (statutCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner un statut.\n");
+        }
+
+        // Vérification de la deadline (obligatoire et ne peut pas être passée)
+        if (deadlinePicker.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner une date limite.\n");
+        } else if (deadlinePicker.getValue().isBefore(LocalDate.now())) {
+            errorMessage.append("La deadline ne peut pas être dans le passé.\n");
+        }
+
+        // Vérification du projet
+        if (projetCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner un projet.\n");
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            showAlert("Erreur de saisie", errorMessage.toString());
+            return false;
+        }
     }
 
     private void closeForm() {
@@ -110,7 +151,7 @@ public class TacheFormController {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.show();

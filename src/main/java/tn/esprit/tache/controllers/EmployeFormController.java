@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class EmployeFormController {
 
@@ -34,14 +35,14 @@ public class EmployeFormController {
         this.employeService = employeService;
         this.departementService = departementService;
 
-        // Load Departements into ComboBox
+        // Charger les départements dans le ComboBox
         loadDepartements();
 
-        // Populate Role and Statut Combos
+        // Remplir les ComboBox rôle et statut
         roleCombo.getItems().addAll("Admin", "Manager", "Employé");
         statutCombo.getItems().addAll("Actif", "Inactif");
 
-        // If editing an existing employee, fill fields
+        // Si modification d'un employé, pré-remplir les champs
         if (employe != null) {
             nomField.setText(employe.getNomEmp());
             emailField.setText(employe.getEmail());
@@ -53,34 +54,31 @@ public class EmployeFormController {
             if (employe.getDateEmbauche() != null) {
                 dateEmbauchePicker.setValue(convertDateToLocalDate(employe.getDateEmbauche()));
             }
-
         }
-
-
     }
 
     @FXML
     private void saveEmploye() {
         if (isInputValid()) {
             if (employe == null) {
-                // Create new Employe
+                // Création d'un nouvel employé
                 employe = new Employe(
                         nomField.getText(),
                         emailField.getText(),
                         roleCombo.getValue(),
                         positionField.getText(),
-                        Date.valueOf(dateEmbauchePicker.getValue()),  // ✅ Convert LocalDate to SQL Date
+                        Date.valueOf(dateEmbauchePicker.getValue()),
                         statutCombo.getValue(),
                         departementCombo.getValue()
                 );
                 employeService.ajouterEmploye(employe);
             } else {
-                // Update existing Employe
+                // Mise à jour d'un employé existant
                 employe.setNomEmp(nomField.getText());
                 employe.setEmail(emailField.getText());
                 employe.setRole(roleCombo.getValue());
                 employe.setPosition(positionField.getText());
-                employe.setDateEmbauche(Date.valueOf(dateEmbauchePicker.getValue()));  // ✅ Convert LocalDate to SQL Date
+                employe.setDateEmbauche(Date.valueOf(dateEmbauchePicker.getValue()));
                 employe.setStatutEmp(statutCombo.getValue());
                 employe.setDepartement(departementCombo.getValue());
 
@@ -97,41 +95,62 @@ public class EmployeFormController {
 
     private LocalDate convertDateToLocalDate(java.util.Date date) {
         if (date instanceof java.sql.Date) {
-            return ((java.sql.Date) date).toLocalDate();  // ✅ Cas `java.sql.Date`
+            return ((java.sql.Date) date).toLocalDate();
         }
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();  // ✅ Cas `java.util.Date`
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
-
     private boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
+        // Vérification du nom (lettres uniquement)
         if (nomField.getText() == null || nomField.getText().trim().isEmpty()) {
-            errorMessage += "Le nom ne peut pas être vide.\n";
-        }
-        if (emailField.getText() == null || emailField.getText().trim().isEmpty()) {
-            errorMessage += "L'email ne peut pas être vide.\n";
-        }
-        if (roleCombo.getValue() == null) {
-            errorMessage += "Veuillez sélectionner un rôle.\n";
-        }
-        if (positionField.getText() == null || positionField.getText().trim().isEmpty()) {
-            errorMessage += "La position ne peut pas être vide.\n";
-        }
-        if (dateEmbauchePicker.getValue() == null) {
-            errorMessage += "Veuillez sélectionner une date d'embauche.\n";
-        }
-        if (statutCombo.getValue() == null) {
-            errorMessage += "Veuillez sélectionner un statut.\n";
-        }
-        if (departementCombo.getValue() == null) {
-            errorMessage += "Veuillez sélectionner un département.\n";
+            errorMessage.append("Le nom ne peut pas être vide.\n");
+        } else if (!Pattern.matches("^[A-Za-zÀ-ÖØ-öø-ÿ\\s-]+$", nomField.getText())) {
+            errorMessage.append("Le nom ne peut contenir que des lettres et espaces.\n");
         }
 
-        if (errorMessage.isEmpty()) {
+        // Vérification de l'email
+        String email = emailField.getText();
+        if (email == null || email.trim().isEmpty()) {
+            errorMessage.append("L'email ne peut pas être vide.\n");
+        } else if (!Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", email)) {
+            errorMessage.append("Email invalide !\n");
+        } else if (employeService.emailExiste(email) && (employe == null || !email.equals(employe.getEmail()))) {
+            errorMessage.append("Cet email est déjà utilisé.\n");
+        }
+
+        // Vérification du rôle
+        if (roleCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner un rôle.\n");
+        }
+
+        // Vérification de la position
+        if (positionField.getText() == null || positionField.getText().trim().isEmpty()) {
+            errorMessage.append("La position ne peut pas être vide.\n");
+        }
+
+        // Vérification de la date d'embauche (obligatoire et ne peut pas être future)
+        if (dateEmbauchePicker.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner une date d'embauche.\n");
+        } else if (dateEmbauchePicker.getValue().isAfter(LocalDate.now())) {
+            errorMessage.append("La date d'embauche ne peut pas être dans le futur.\n");
+        }
+
+        // Vérification du statut
+        if (statutCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner un statut.\n");
+        }
+
+        // Vérification du département
+        if (departementCombo.getValue() == null) {
+            errorMessage.append("Veuillez sélectionner un département.\n");
+        }
+
+        if (errorMessage.length() == 0) {
             return true;
         } else {
-            showAlert("Erreur", errorMessage);
+            showAlert("Erreur de saisie", errorMessage.toString());
             return false;
         }
     }

@@ -5,78 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d24b1158-307b-46c5-9156-f9922921b0a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/utils/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/views/Main.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/MainFX.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/AffectationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/AffectationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/CommentaireController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/EmployeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/EmployeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/EmployeFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/EmployeFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/ProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/ProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/ProjetFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/ProjetFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/TacheController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/TacheController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Affectation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Affectation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Commentaire.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Departement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Departement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Employe.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Projet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Projet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/AffectationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/AffectationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/CommentaireService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/TacheFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/controllers/TacheFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Tache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/entities/Tache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/EmployeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/EmployeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IAffectationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IAffectationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/ICommentaireService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IEmployeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IEmployeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IProjetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IProjetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/IService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/ProjetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/ProjetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/AffectationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Affectation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/CommentaireView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/EmployeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Employe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/MainView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProjetView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Projet.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/TacheView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tache.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/PI_EasyHR-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/MainFX.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/MainFX.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/TacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tache/services/TacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Affectation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Affectation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Employe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Employe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Projet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Projet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tache.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tache.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/AffectationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/AffectationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/CommentaireController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/EmployeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/EmployeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/EmployeFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/EmployeFormController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/ProjetController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/ProjetController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/ProjetFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/ProjetFormController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/TacheController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/TacheController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Affectation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Affectation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Commentaire.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Departement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Departement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Employe.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Employe.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Projet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Projet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Tache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/entities/Tache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/AffectationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/AffectationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/CommentaireService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/TacheFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/controllers/TacheFormController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/EmployeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/EmployeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IAffectationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IAffectationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/ICommentaireService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IEmployeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IEmployeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IProjetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IProjetService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/IService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/ITacheService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/ITacheService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/ProjetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/ProjetService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/TacheService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/services/TacheService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/test/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tn/esprit/tache/utils/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tn/esprit/tache/utils/DBConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/AffectationView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/CommentaireView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/EmployeView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/MainView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ProjetView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/TacheView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/Affectation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/Affectation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/Employe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/Employe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/Projet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/Projet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/Tache.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/Tache.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
