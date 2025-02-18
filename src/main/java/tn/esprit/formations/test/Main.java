@@ -1,7 +1,6 @@
 package tn.esprit.formations.test;
 
 import tn.esprit.formations.entities.Formation;
-import tn.esprit.formations.interfaces.FormationApp;
 import tn.esprit.formations.services.ServiceFormation;
 import tn.esprit.formations.utils.MyDatabase;
 
@@ -12,7 +11,7 @@ public class Main {
         ServiceFormation serviceFormation = new ServiceFormation();
         try{
             serviceFormation.afficher();
-            System.out.println("formation affiche");
+            System.out.println("affiche");
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

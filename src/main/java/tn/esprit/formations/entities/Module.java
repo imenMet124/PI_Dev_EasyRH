@@ -3,15 +3,17 @@ package tn.esprit.formations.entities;
 public class Module {
     private int id;
     private String titre;
+    private String Description;
     private String contenu; // chemin vers fichier
     private int idQuizModule;
 
     //Constructeur
     public Module() {}
 
-    public Module(int id, String titre, String contenu, int quizModule) {
+    public Module(int id, String titre,String Description, String contenu, int quizModule) {
         this.id = id;
         this.titre = titre;
+        this.Description = Description;
         this.contenu = contenu;
         this.idQuizModule = quizModule;
     }
@@ -47,8 +49,12 @@ public class Module {
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 }
-/* moduleApp
-
-
- */
