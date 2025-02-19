@@ -140,17 +140,10 @@ public class ModifyEventsController {
         Evenement selectedEvent = eventTable.getSelectionModel().getSelectedItem();
 
         if (selectedEvent != null) {
-            // ID de l'utilisateur (à remplacer par l'ID réel de l'utilisateur connecté)
             int currentUserId = 1;
             LocalDate currentDate = LocalDate.now();
-
-            // Créer une nouvelle participation
             Participation newParticipation = new Participation(selectedEvent.getId(), currentUserId, currentDate, "En attente");
-
-            // Ajouter la participation à la base de données
             serviceParticipation.ajouterParticipation(newParticipation);
-
-            // Incrémenter le nombre de participants de l'événement
             serviceEvenement.incrementerParticipants(selectedEvent.getId());
 
             showAlert("Succès", "Vous êtes inscrit à l'événement: " + selectedEvent.getTitre());
