@@ -3,63 +3,81 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
 <?import java.lang.String?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.evenement.controllers.ModifyEventsController">
     <stylesheets>
         <String fx:value="style.css"/>
     </stylesheets>
 
+    <VBox spacing="20" prefWidth="1200" prefHeight="800"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-    <VBox alignment="CENTER" spacing="20" prefWidth="1000" prefHeight="700" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-
+        <!-- ✅ Titre -->
         <Label styleClass="details-title" text="Modifier l'événement"/>
 
+        <!-- ✅ Conteneur scrollable -->
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="20" styleClass="form-container">
 
-        <VBox styleClass="form-container">
+                <GridPane hgap="20" vgap="20" styleClass="form-grid">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="300"/>
+                        <ColumnConstraints prefWidth="300"/>
+                    </columnConstraints>
 
-            <GridPane hgap="15" vgap="15" styleClass="form-grid">
-                <columnConstraints>
-                    <ColumnConstraints minWidth="150" prefWidth="200"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                </columnConstraints>
+                    <!-- Partie Gauche -->
+                    <VBox spacing="15" GridPane.columnIndex="0">
+                        <Label text="Titre:"/>
+                        <TextField fx:id="titreField"/>
 
-                <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="Description:"/>
+                        <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true"/>
 
-                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="Date:"/>
+                        <DatePicker fx:id="datePicker"/>
 
-                <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="Heure:"/>
+                        <TextField fx:id="heureField" promptText="HH:MM:SS"/>
+                    </VBox>
 
-                <Label text="Heure:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <TextField fx:id="heureField" promptText="HH:MM:SS" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <!-- Partie Droite -->
+                    <VBox spacing="15" GridPane.columnIndex="1">
+                        <Label text="Lieu:"/>
+                        <TextField fx:id="lieuField"/>
 
-                <Label text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <TextField fx:id="lieuField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Label text="Capacité:"/>
+                        <TextField fx:id="capaciteField"/>
 
-                <Label text="Capacité:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                <TextField fx:id="capaciteField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Label text="Participants:"/>
+                        <TextField fx:id="participantsField" editable="false"/>
 
-                <Label text="Participants:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                <TextField fx:id="participantsField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <Label text="Image Actuelle:"/>
+                        <ImageView fx:id="eventImageView" fitHeight="200" fitWidth="300"/>
+                    </VBox>
+                </GridPane>
 
-                <Label text="Image Actuelle:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                <ImageView fx:id="eventImageView" fitHeight="150" fitWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                <!-- ✅ Gestion de l'image -->
+                <VBox spacing="10" alignment="CENTER" styleClass="image-upload-container">
+                    <Label text="Changer l'image:"/>
 
-                <Label text="Changer l'image:" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-                <TextField fx:id="imagePathField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                <Button text="Upload..." onAction="#handleUploadImage" styleClass="upload-button" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
-            </GridPane>
-        </VBox>
+                    <HBox spacing="10" alignment="CENTER">
+                        <TextField fx:id="imagePathField" editable="false"/>
+                        <Button text="📂 Upload" onAction="#handleUploadImage" styleClass="upload-button"/>
+                    </HBox>
+                </VBox>
 
 
+            </VBox>
+        </ScrollPane>
         <HBox spacing="20" alignment="CENTER">
-            <Button text="Annuler" onAction="#handleCancel" styleClass="cancel-button"/>
-            <Button text="Enregistrer" onAction="#handleModifierEvent" styleClass="save-button"/>
+            <Button fx:id="cancelButton" text="❌ Annuler" onAction="#handleCancel" styleClass="cancel-button"/>
+            <Button fx:id="saveButton" text="💾 Enregistrer" onAction="#handleModifierEvent" styleClass="save-button"/>
         </HBox>
+
+
 
     </VBox>
 </AnchorPane>

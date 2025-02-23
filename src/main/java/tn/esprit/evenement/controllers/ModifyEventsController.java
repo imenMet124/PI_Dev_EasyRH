@@ -7,7 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import tn.esprit.evenement.entities.Evenement;
 import tn.esprit.evenement.services.ServiceEvenement;
-
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,13 +29,40 @@ public class ModifyEventsController {
     @FXML private TextField capaciteField;
     @FXML private TextField participantsField;
     @FXML private ImageView eventImageView;
+    @FXML private TextField imagePathField;
 
     private Evenement eventToModify;
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
+    private String newImagePath = null;  // Pour stocker le nouveau chemin de l'image
 
+
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button saveButton;
+
+    public void initialize() {
+        if (cancelButton != null) {
+            cancelButton.setText("❌ Annuler"); // Assurez-vous que le texte est affiché
+            FontAwesomeIconView closeIcon = new FontAwesomeIconView(FontAwesomeIcon.TIMES);
+            closeIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
+            cancelButton.setGraphic(closeIcon);
+            cancelButton.setContentDisplay(ContentDisplay.LEFT); // Afficher icône + texte
+        }
+
+        if (saveButton != null) {
+            saveButton.setText("💾 Enregistrer"); // Assurez-vous que le texte est affiché
+            FontAwesomeIconView saveIcon = new FontAwesomeIconView(FontAwesomeIcon.SAVE);
+            saveIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
+            saveButton.setGraphic(saveIcon);
+            saveButton.setContentDisplay(ContentDisplay.LEFT); // Afficher icône + texte
+        }
+
+    }
+
+    // ✅ Initialisation des données de l'événement
     public void setEventToModify(Evenement event) {
         this.eventToModify = event;
-
         titreField.setText(event.getTitre());
         descriptionField.setText(event.getDescription());
         datePicker.setValue(event.getDate().toLocalDate());
@@ -43,22 +71,24 @@ public class ModifyEventsController {
         capaciteField.setText(String.valueOf(event.getCapacite()));
         participantsField.setText(String.valueOf(event.getNombreParticipants()));
 
-        // ✅ Vérification de l’image
+        // ✅ Vérification et affichage de l'image
         if (event.getImagePath() != null && !event.getImagePath().isEmpty()) {
             File file = new File(event.getImagePath());
 
             if (file.exists()) {
                 eventImageView.setImage(new Image(file.toURI().toString()));
+                imagePathField.setText(event.getImagePath());
             } else {
-                System.out.println("⚠️ L’image spécifiée n’existe pas !");
-                eventImageView.setImage(new Image("/images/default.png")); // Image par défaut
+                System.out.println("⚠️ L’image spécifiée n’existe pas, utilisation d'une image par défaut.");
+              //  eventImageView.setImage(new Image("/images/default.png"));
             }
-        } else {
-            System.out.println("⚠️ Aucune image spécifiée, utilisation de l’image par défaut.");
-            eventImageView.setImage(new Image("/images/default.png")); // Image par défaut si NULL
         }
+//        else {
+//           eventImageView.setImage(new Image("/images/default.png"));
+//       }
     }
 
+    // ✅ Upload et sélection d'une nouvelle image
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -72,17 +102,25 @@ public class ModifyEventsController {
                     destDir.mkdirs();
                 }
 
+                // ✅ Générer un nom unique pour l'image
                 String newFileName = System.currentTimeMillis() + "_" + selectedFile.getName();
                 File destFile = new File(destDir, newFileName);
 
+                // ✅ Copier l'image sélectionnée dans le dossier
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // ✅ Afficher la nouvelle image et enregistrer son chemin
                 eventImageView.setImage(new Image(destFile.toURI().toString()));
+                newImagePath = destFile.getAbsolutePath();
+                imagePathField.setText(newImagePath);
+
             } catch (IOException e) {
                 System.out.println("⚠️ Erreur lors de l'upload : " + e.getMessage());
             }
         }
     }
 
+    // ✅ Modification de l'événement (y compris l'image)
     @FXML
     private void handleModifierEvent() {
         if (eventToModify == null) {
@@ -90,6 +128,7 @@ public class ModifyEventsController {
             return;
         }
 
+        // ✅ Mise à jour des champs
         eventToModify.setTitre(titreField.getText());
         eventToModify.setDescription(descriptionField.getText());
         eventToModify.setDate(Date.valueOf(datePicker.getValue()));
@@ -97,14 +136,19 @@ public class ModifyEventsController {
         eventToModify.setLieu(lieuField.getText());
         eventToModify.setCapacite(Integer.parseInt(capaciteField.getText()));
 
+        // ✅ Mise à jour de l'image si une nouvelle image a été uploadée
+        if (newImagePath != null) {
+            eventToModify.setImagePath(newImagePath);
+        }
+
         try {
             serviceEvenement.modifier(eventToModify);
             showAlert("Succès", "Événement modifié avec succès !");
+            closeWindow();
         } catch (SQLException e) {
             showAlert("Erreur", "Problème lors de la modification : " + e.getMessage());
         }
     }
-
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

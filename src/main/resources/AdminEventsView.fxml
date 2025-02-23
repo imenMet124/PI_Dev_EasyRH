@@ -23,7 +23,7 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <Button onAction="#handleAddEvent" styleClass="action-button" text="Ajouter">
+            <Button onAction="#handleAddEvent" styleClass="action-button" text="Ajouter Evenement">
                 <graphic>
                     <FontAwesomeIconView glyphName="PLUS" size="16" />
                 </graphic>

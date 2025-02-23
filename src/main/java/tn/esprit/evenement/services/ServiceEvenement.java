@@ -39,14 +39,15 @@ public class ServiceEvenement implements IService<Evenement> {
         ps.setString(1, evenement.getTitre());
         ps.setString(2, evenement.getDescription());
         ps.setDate(3, evenement.getDate());
-        ps.setTime(4, evenement.getHeure()); // Modification de l'heure
+        ps.setTime(4, evenement.getHeure());
         ps.setString(5, evenement.getLieu());
         ps.setInt(6, evenement.getCapacite());
-        ps.setString(7, evenement.getImagePath()); // Modification de l'image
+        ps.setString(7, evenement.getImagePath());  // ✅ Ajout de l'image
         ps.setInt(8, evenement.getId());
 
         ps.executeUpdate();
     }
+
 
     // ✅ Supprimer un événement
     @Override

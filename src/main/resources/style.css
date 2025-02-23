@@ -1,6 +1,6 @@
-/* ✅ Style général de la page */
+/* ✅ Style général */
 .details-container {
-    -fx-background-color: #F9FAFC;
+    -fx-background-color: linear-gradient(to right, #F0F2F5, #FFFFFF);
     -fx-padding: 40;
     -fx-spacing: 20;
     -fx-alignment: center;
@@ -8,22 +8,22 @@
     -fx-pref-height: 100%;
 }
 
-/* ✅ Centrer et styliser le formulaire */
+/* ✅ Conteneur du formulaire */
 .form-container {
     -fx-background-color: #FFFFFF;
     -fx-padding: 30;
     -fx-border-radius: 15;
     -fx-border-color: #748CF1;
     -fx-border-width: 2;
-    -fx-spacing: 20;
     -fx-alignment: center;
-    -fx-max-width: 600px;
-    -fx-pref-width: 50%;
+    -fx-max-width: 800px;
+    -fx-pref-width: 60%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
 }
 
-/* ✅ Titre de la page */
+/* ✅ Titre principal */
 .details-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: #748CF1;
     -fx-alignment: center;
@@ -46,18 +46,18 @@
     -fx-font-weight: bold;
 }
 
-/* ✅ Champs de texte */
+/* ✅ Champs de texte et DatePicker */
 TextField, TextArea, DatePicker {
     -fx-pref-height: 45;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #F9FAFC;
     -fx-border-color: #748CF1;
     -fx-border-radius: 10;
     -fx-font-size: 14px;
-    -fx-padding: 5;
+    -fx-padding: 10;
     -fx-pref-width: 100%;
 }
 
-/* ✅ Amélioration des champs au focus */
+/* ✅ Effet interactif sur les champs */
 TextField:focused, TextArea:focused, DatePicker:focused {
     -fx-border-color: #748CF1;
     -fx-border-width: 2;
@@ -71,7 +71,7 @@ TextField:focused, TextArea:focused, DatePicker:focused {
     -fx-border-width: 3;
     -fx-padding: 10;
     -fx-background-color: #FFFFFF;
-    -fx-max-width: 100%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
 }
 
 /* ✅ Bouton Upload */
@@ -80,7 +80,7 @@ TextField:focused, TextArea:focused, DatePicker:focused {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 10;
-    -fx-padding: 8 16;
+    -fx-padding: 10 20;
     -fx-pref-width: 100%;
 }
 
@@ -88,26 +88,13 @@ TextField:focused, TextArea:focused, DatePicker:focused {
     -fx-background-color: #5A73D1;
 }
 
-/* ✅ Boutons Enregistrer et Annuler */
+/* ✅ Conteneur des boutons */
 .button-container {
     -fx-alignment: center;
-    -fx-spacing: 15;
+    -fx-spacing: 20;
 }
 
-.save-button {
-    -fx-background-color: #FD9999;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10;
-    -fx-padding: 12;
-    -fx-pref-width: 48%;
-}
-
-.save-button:hover {
-    -fx-background-color: #E07A7A;
-}
-
+/* ✅ Bouton Annuler */
 .cancel-button {
     -fx-background-color: #748CF1;
     -fx-text-fill: white;
@@ -115,9 +102,63 @@ TextField:focused, TextArea:focused, DatePicker:focused {
     -fx-font-weight: bold;
     -fx-border-radius: 10;
     -fx-padding: 12;
-    -fx-pref-width: 48%;
+    -fx-pref-width: 160px;
 }
 
 .cancel-button:hover {
+    -fx-background-color: #5A73D1;
+}
+
+/* ✅ Bouton Enregistrer */
+.save-button {
+    -fx-background-color: #FD9999;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-padding: 12;
+    -fx-pref-width: 160px;
+}
+
+.save-button:hover {
+    -fx-background-color: #E07A7A;
+}
+/* ✅ Style du conteneur de l'upload */
+.image-upload-container {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
+/* ✅ Champ texte du chemin de l'image */
+#imagePathField {
+    -fx-pref-height: 40;
+    -fx-background-color: #F9FAFC;
+    -fx-border-color: #748CF1;
+    -fx-border-radius: 10;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-pref-width: 250px;
+}
+
+/* ✅ Bouton Upload */
+.upload-button {
+    -fx-background-color: #748CF1;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-min-width: 120px;
+}
+
+/* ✅ Icône du bouton Upload */
+.upload-button .graphic {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+}
+
+/* ✅ Effet au survol */
+.upload-button:hover {
     -fx-background-color: #5A73D1;
 }

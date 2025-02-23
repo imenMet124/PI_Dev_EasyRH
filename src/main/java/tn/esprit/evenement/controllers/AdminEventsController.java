@@ -143,19 +143,11 @@ public class AdminEventsController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsEventView.fxml"));
             AnchorPane root = loader.load();
 
-            TextField titreField = (TextField) root.lookup("#titreField");
-            TextArea descriptionField = (TextArea) root.lookup("#descriptionField");
-            DatePicker datePicker = (DatePicker) root.lookup("#datePicker");
-            TextField lieuField = (TextField) root.lookup("#lieuField");
-            TextField capaciteField = (TextField) root.lookup("#capaciteField");
+            // Récupération du contrôleur et passage de l'événement
+            DetailsEventsController controller = loader.getController();
+            controller.setEventDetails(event);
 
-            titreField.setText(event.getTitre());
-            descriptionField.setText(event.getDescription());
-            datePicker.setValue(event.getDate().toLocalDate());
-            lieuField.setText(event.getLieu());
-            capaciteField.setText(String.valueOf(event.getCapacite()));
-
-            Scene scene = new Scene(root, 800, 600);
+            Scene scene = new Scene(root, 900, 600);
             Stage detailsStage = new Stage();
             detailsStage.setTitle("Détails de l'événement");
             detailsStage.setScene(scene);
@@ -164,7 +156,6 @@ public class AdminEventsController implements Initializable {
             e.printStackTrace();
         }
     }
-
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

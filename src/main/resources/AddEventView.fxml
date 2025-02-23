@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.evenement.controllers.ModifyEventsController">
+<?import java.lang.String?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.evenement.controllers.AddEventController">
     <stylesheets>
-        <String fx:value="style.css" />
+        <String fx:value="styleAdd.css"/>
     </stylesheets>
-    <!-- Section des détails -->
-    <VBox styleClass="details-container" prefWidth="800" prefHeight="600">
-        <Label styleClass="details-title" text="Ajouter un événement" />
 
-        <GridPane hgap="15" style="-fx-padding: 20 0;" vgap="15">
-            <columnConstraints>
-                <ColumnConstraints minWidth="150" prefWidth="200" />
-                <ColumnConstraints hgrow="ALWAYS" />
-            </columnConstraints>
+    <HBox spacing="0" prefWidth="900" prefHeight="600" styleClass="container">
 
-            <Label styleClass="label-field" text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <!-- ✅ Partie gauche avec une image -->
+        <VBox styleClass="left-pane">
+            <ImageView fx:id="eventImageView" fitHeight="300" fitWidth="300"/>
+            <Button text="📸 Ajouter une image" onAction="#handleUploadImage" styleClass="upload-button"/>
+        </VBox>
 
-            <Label styleClass="label-field" text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <!-- ✅ Partie droite avec le formulaire -->
+        <VBox styleClass="right-pane" spacing="15">
+            <Label text="Ajouter un événement" styleClass="title"/>
 
-            <Label styleClass="label-field" text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150" prefWidth="200"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
 
-            <Label styleClass="label-field" text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="lieuField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-            <Label styleClass="label-field" text="Capacité:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="capaciteField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <!-- Bouton pour enregistrer les modifications -->
+                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-            <rowConstraints>
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-            </rowConstraints>
-        </GridPane>
-    </VBox>
-    <Button id="saveButton" text="Ajouter" onAction="#handleAjouterEvent" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+                <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Heure:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="heureField" promptText="HH:MM:SS" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="lieuField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <Label text="Capacité:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                <TextField fx:id="capaciteField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            </GridPane>
+
+            <!-- ✅ Boutons -->
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="❌ Annuler" onAction="#handleCancel" styleClass="cancel-button"/>
+                <Button text="✅ Ajouter" onAction="#handleAjouterEvent" styleClass="save-button"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </AnchorPane>

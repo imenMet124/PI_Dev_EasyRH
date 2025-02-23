@@ -37,13 +37,13 @@ public class HomePage extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminEventsView.fxml"));
             AnchorPane root = loader.load();
 
-// Vérification que le contrôleur est bien initialisé
-            AdminEventsController controller = loader.getController();
-            if (controller == null) {
-                System.out.println("ERREUR: Le contrôleur AdminEventsController n'a pas été chargé !");
-            } else {
-                System.out.println("SUCCESS: Le contrôleur AdminEventsController est bien initialisé.");
-            }
+//// Vérification que le contrôleur est bien initialisé
+//            AdminEventsController controller = loader.getController();
+//            if (controller == null) {
+//                System.out.println("ERREUR: Le contrôleur AdminEventsController n'a pas été chargé !");
+//            } else {
+//                System.out.println("SUCCESS: Le contrôleur AdminEventsController est bien initialisé.");
+//            }
 
             Scene scene = new Scene(root, 800, 600);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

@@ -2,7 +2,7 @@ package tn.esprit.evenement.entities;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class Evenement {
     private int id;
@@ -16,7 +16,7 @@ public class Evenement {
     private String imagePath; // Chemin de l'image (peut être NULL)
 
     // ✅ Constructeur par défaut
-    public Evenement() {}
+    public Evenement(int eventId, String eventTitre, LocalDate eventDate) {}
 
     // ✅ Constructeur avec ID (pour la récupération depuis la base de données)
     public Evenement(int id, String titre, String description, Date date, Time heure, String lieu, int capacite, int nombreParticipants, String imagePath) {

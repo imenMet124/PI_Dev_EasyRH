@@ -12,7 +12,7 @@ public class Utilisateur {
     }
 
     // Constructeurs
-    public Utilisateur() {}
+    public Utilisateur(int userId, String userNom) {}
 
     public Utilisateur(int id, String nom, String prenom, String email, Role role) {
         this.id = id;

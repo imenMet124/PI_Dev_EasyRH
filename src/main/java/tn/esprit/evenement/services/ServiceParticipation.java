@@ -2,6 +2,8 @@ package tn.esprit.evenement.services;
 
 import tn.esprit.evenement.utils.MyDataBase;
 import tn.esprit.evenement.entities.Participation;
+import tn.esprit.evenement.entities.Evenement;
+import tn.esprit.evenement.entities.Utilisateur;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,23 +17,23 @@ public class ServiceParticipation {
         this.connection = MyDataBase.getInstance().getConnection();
     }
 
-    // Ajouter une participation
+    // ✅ Ajouter une participation avec un objet `Evenement` et `Utilisateur`
     public void ajouterParticipation(Participation p) {
         String req = "INSERT INTO participation (Id_Evenement, Participant, `Date inscription`, Statut) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
-            ps.setInt(1, p.getIdEvenement());
-            ps.setInt(2, p.getParticipant());
+            ps.setInt(1, p.getEvenement().getId()); // Utilisation de l'objet `Evenement`
+            ps.setInt(2, p.getParticipant().getId()); // Utilisation de l'objet `Utilisateur`
             ps.setDate(3, Date.valueOf(p.getDateInscription()));
             ps.setString(4, p.getStatut());
             ps.executeUpdate();
-            System.out.println("Participation ajoutée avec succès !");
+            System.out.println("✅ Participation ajoutée avec succès !");
         } catch (SQLException e) {
-            System.out.println("Erreur lors de l'ajout de la participation : " + e.getMessage());
+            System.out.println("❌ Erreur lors de l'ajout de la participation : " + e.getMessage());
         }
     }
 
-    // Modifier le statut d'une participation
+    // ✅ Modifier le statut d'une participation
     public void modifierStatut(int idParticipation, String nouveauStatut) {
         String req = "UPDATE participation SET Statut = ? WHERE Id_Participation = ?";
         try {
@@ -39,44 +41,59 @@ public class ServiceParticipation {
             ps.setString(1, nouveauStatut);
             ps.setInt(2, idParticipation);
             ps.executeUpdate();
-            System.out.println("Statut mis à jour avec succès !");
+            System.out.println("✅ Statut mis à jour avec succès !");
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la mise à jour du statut : " + e.getMessage());
+            System.out.println("❌ Erreur lors de la mise à jour du statut : " + e.getMessage());
         }
     }
 
-    // Supprimer une participation
+    // ✅ Supprimer une participation
     public void supprimerParticipation(int idParticipation) {
         String req = "DELETE FROM participation WHERE Id_Participation = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             ps.setInt(1, idParticipation);
             ps.executeUpdate();
-            System.out.println("Participation supprimée avec succès !");
+            System.out.println("✅ Participation supprimée avec succès !");
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression de la participation : " + e.getMessage());
+            System.out.println("❌ Erreur lors de la suppression de la participation : " + e.getMessage());
         }
     }
 
-    // Récupérer les participations d'un utilisateur
+    // ✅ Récupérer toutes les participations d'un utilisateur avec des objets `Evenement` et `Utilisateur`
     public List<Participation> getParticipationsParUtilisateur(int idUser) {
         List<Participation> participations = new ArrayList<>();
-        String req = "SELECT * FROM participation WHERE Participant = ?";
+        String req = "SELECT p.Id_Participation, p.`Date inscription`, p.Statut, " +
+                "e.Id AS event_id, e.Titre AS event_titre, e.Date AS event_date, " +
+                "u.Id AS user_id, u.Nom AS user_nom " +
+                "FROM participation p " +
+                "JOIN evenement e ON p.Id_Evenement = e.Id " +
+                "JOIN utilisateur u ON p.Participant = u.Id " +
+                "WHERE p.Participant = ?";
+
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             ps.setInt(1, idUser);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-                participations.add(new Participation(
+                // ✅ Création d'objets `Evenement` et `Utilisateur`
+                Evenement event = new Evenement(rs.getInt("event_id"), rs.getString("event_titre"), rs.getDate("event_date").toLocalDate());
+                Utilisateur user = new Utilisateur(rs.getInt("user_id"), rs.getString("user_nom"));
+
+                // ✅ Création d'un objet `Participation`
+                Participation participation = new Participation(
                         rs.getInt("Id_Participation"),
-                        rs.getInt("Id_Evenement"),
-                        rs.getInt("Participant"),
+                        event,  // Passer un objet `Evenement`
+                        user,   // Passer un objet `Utilisateur`
                         rs.getDate("Date inscription").toLocalDate(),
                         rs.getString("Statut")
-                ));
+                );
+
+                participations.add(participation);
             }
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des participations : " + e.getMessage());
+            System.out.println("❌ Erreur lors de la récupération des participations : " + e.getMessage());
         }
         return participations;
     }

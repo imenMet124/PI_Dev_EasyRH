@@ -1,17 +1,22 @@
 package tn.esprit.evenement.controllers;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import tn.esprit.evenement.entities.Evenement;
 import tn.esprit.evenement.entities.Participation;
+import tn.esprit.evenement.entities.Utilisateur;
 import tn.esprit.evenement.services.ServiceEvenement;
 import tn.esprit.evenement.services.ServiceParticipation;
+import tn.esprit.evenement.services.ServiceUtilisateur;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -19,112 +24,117 @@ import java.util.ResourceBundle;
 
 public class UserEventsController implements Initializable {
 
-    @FXML private TableView<Evenement> eventTable;
-    @FXML private TableColumn<Evenement, Integer> idCol;
-    @FXML private TableColumn<Evenement, String> titreCol;
-    @FXML private TableColumn<Evenement, String> descriptionCol;
-    @FXML private TableColumn<Evenement, String> dateCol;
-    @FXML private TableColumn<Evenement, String> lieuCol;
-    @FXML private TableColumn<Evenement, Integer> capaciteCol;
-    @FXML private TableColumn<Evenement, Integer> participantsCol;
-
-    @FXML private TextField titreField;
-    @FXML private TextArea descriptionField;
-    @FXML private DatePicker datePicker;
-    @FXML private TextField lieuField;
-    @FXML private TextField capaciteField;
-    @FXML private TextField nombreParticipationField;
-
-
+    @FXML private ListView<Evenement> eventListView;
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     private final ServiceParticipation serviceParticipation = new ServiceParticipation();
+    private final ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
+
+    private Utilisateur currentUser; // Utilisateur connecté (Remplacez par la session actuelle)
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initializeColumns();
-        loadEvents();
-        eventTable.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldSelection, newSelection) -> {
-                    if (newSelection != null) {
-                        showEventDetails(newSelection);
-                    }
-                });
+        loadEventList();
+        currentUser = serviceUtilisateur.getUtilisateurParId(1); // Simule un utilisateur connecté
     }
 
-    private void initializeColumns() {
-
-       // idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
-      //  descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-      //  lieuCol.setCellValueFactory(new PropertyValueFactory<>("lieu"));
-        capaciteCol.setCellValueFactory(new PropertyValueFactory<>("capacite"));
-        // participantsCol.setCellValueFactory(new PropertyValueFactory<>("nombreParticipants"));// Ajouter la colonne nombreParticipants
-        participantsCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNombreParticipants()).asObject());
-
-    }
-
-
-    private void loadEvents() {
+    /**
+     * ✅ Charger la liste des événements disponibles
+     */
+    private void loadEventList() {
         try {
             ObservableList<Evenement> events = FXCollections.observableArrayList(serviceEvenement.afficher());
-            eventTable.setItems(events);
+            eventListView.setItems(events);
         } catch (SQLException e) {
             showAlert("Erreur", "Erreur lors du chargement des événements: " + e.getMessage());
         }
     }
-    private void showEventDetails(Evenement event) {
-        titreField.setText(event.getTitre());
-        descriptionField.setText(event.getDescription());
 
-//        // Vérifiez si l'événement a une date
-//        if (event.getDate() != null) {
-//            // Conversion de java.sql.Date en LocalDate
-//            long localDate = event.getDate().toEpochDay();
-//            datePicker.setValue(LocalDate.ofEpochDay(localDate));
-//        }
-
-      //  datePicker.setValue(event.getDate().toLocalDateTime().toLocalDate());
-        lieuField.setText(event.getLieu());
-        capaciteField.setText(String.valueOf(event.getCapacite()));
-        nombreParticipationField.setText(String.valueOf(event.getCapacite()));
-
-
-    }
-
+    /**
+     * ✅ Gérer l'inscription à un événement
+     */
     @FXML
-    private void handleInscription() throws SQLException {
-        Evenement selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+    private void handleInscription() {
+        Evenement selectedEvent = eventListView.getSelectionModel().getSelectedItem();
 
         if (selectedEvent != null) {
-            // ID de l'utilisateur (à remplacer par l'ID réel de l'utilisateur connecté)
-            int currentUserId = 1;
             LocalDate currentDate = LocalDate.now();
 
-            // Créer une nouvelle participation
-            Participation newParticipation = new Participation(selectedEvent.getId(), currentUserId, currentDate, "En attente");
+            try {
+                // Vérifier si la capacité de l'événement est atteinte
+                if (selectedEvent.getNombreParticipants() >= selectedEvent.getCapacite()) {
+                    showAlert("Erreur", "Cet événement est complet. Impossible de s'inscrire.");
+                    return;
+                }
 
-            // Ajouter la participation à la base de données
-            serviceParticipation.ajouterParticipation(newParticipation);
+                // Vérifier si l'utilisateur est déjà inscrit
+                boolean alreadyRegistered = serviceParticipation.getParticipationsParUtilisateur(currentUser.getId())
+                        .stream().anyMatch(p -> p.getEvenement().getId() == selectedEvent.getId());
 
-            // Incrémenter le nombre de participants de l'événement
-            serviceEvenement.incrementerParticipants(selectedEvent.getId());
+                if (alreadyRegistered) {
+                    showAlert("Erreur", "Vous êtes déjà inscrit à cet événement.");
+                    return;
+                }
 
-            showAlert("Succès", "Vous êtes inscrit à l'événement: " + selectedEvent.getTitre());
+                // Créer une nouvelle participation
+                Participation newParticipation = new Participation(selectedEvent, currentUser, currentDate, "En attente");
+
+                // Ajouter la participation à la base de données
+                serviceParticipation.ajouterParticipation(newParticipation);
+
+                // Incrémenter le nombre de participants de l'événement
+                serviceEvenement.incrementerParticipants(selectedEvent.getId());
+
+                showAlert("Succès", "Vous êtes inscrit à l'événement: " + selectedEvent.getTitre());
+                loadEventList(); // Rafraîchir la liste
+            } catch (SQLException e) {
+                showAlert("Erreur", "Problème lors de l'inscription : " + e.getMessage());
+            }
         } else {
-            showAlert("Erreur", "Veuillez sélectionner un événement pour vous inscrire");
+            showAlert("Erreur", "Veuillez sélectionner un événement pour vous inscrire.");
         }
     }
 
+    /**
+     * ✅ Afficher les détails d'un événement sélectionné
+     */
     @FXML
-    private void handleRefresh() {
-        loadEvents();
+    private void handleDetailsEvent() {
+        Evenement selectedEvent = eventListView.getSelectionModel().getSelectedItem();
+        if (selectedEvent != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsEventView.fxml"));
+                AnchorPane root = loader.load();
+
+                DetailsEventsController controller = loader.getController();
+                controller.setEventDetails(selectedEvent);
+
+                Stage stage = new Stage();
+                stage.setTitle("Détails de l'événement");
+                stage.setScene(new Scene(root, 800, 600));
+                stage.show();
+            } catch (IOException e) {
+                showAlert("Erreur", "Impossible d'afficher les détails : " + e.getMessage());
+            }
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner un événement.");
+        }
     }
 
-    private void showAlert(String title, String content) {
+    /**
+     * ✅ Rafraîchir la liste des événements
+     */
+    @FXML
+    private void handleRefresh() {
+        loadEventList();
+    }
+
+    /**
+     * ✅ Afficher une alerte d'information
+     */
+    private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
-        alert.setContentText(content);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }
