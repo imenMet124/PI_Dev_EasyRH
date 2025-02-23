@@ -1,146 +1,123 @@
-/* Importation des polices si nécessaire */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-.root {
-    -fx-background-color: #f4f4f4;
-    -fx-font-family: 'Poppins', sans-serif;
+/* ✅ Style général de la page */
+.details-container {
+    -fx-background-color: #F9FAFC;
+    -fx-padding: 40;
+    -fx-spacing: 20;
+    -fx-alignment: center;
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100%;
 }
 
-/* Styles de l'en-tête */
-.header-container {
-    -fx-background-color: #0056b3; /* Bleu foncé */
-    -fx-padding: 15;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+/* ✅ Centrer et styliser le formulaire */
+.form-container {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 30;
+    -fx-border-radius: 15;
+    -fx-border-color: #748CF1;
+    -fx-border-width: 2;
+    -fx-spacing: 20;
+    -fx-alignment: center;
+    -fx-max-width: 600px;
+    -fx-pref-width: 50%;
 }
 
-.header-title {
-    -fx-fill: #00bcd4; /* Bleu-vert */
+/* ✅ Titre de la page */
+.details-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-text-fill: #748CF1;
+    -fx-alignment: center;
 }
 
-/* Boutons stylisés */
-Button {
-    -fx-background-color: #009688; /* Vert */
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 8 16;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-
-Button:hover {
-    -fx-background-color: #00796b; /* Vert foncé au survol */
-}
-
-/* Boutons spécifiques "Ajouter", "Modifier", "Supprimer" */
-.button-modifier {
-    -fx-background-color: #00bcd4; /* Bleu-vert */
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 8 16;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-font-weight: bold;
-}
-
-.button-modifier:hover {
-    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
-}
-
-.button-supprimer {
-    -fx-background-color: #ff4444; /* Rouge pour contraste */
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 8 16;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-font-weight: bold;
-}
-
-.button-supprimer:hover {
-    -fx-background-color: #cc0000; /* Rouge foncé au survol */
-}
-
-/* Bouton Actualiser */
-.refresh-button {
-    -fx-background-color: #00bcd4; /* Bleu-vert */
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 8 16;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-}
-
-.refresh-button:hover {
-    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
-}
-
-/* TableView */
-TableView {
-    -fx-background-color: #ffffff;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-padding: 10;
-}
-
-TableColumn {
-    -fx-font-size: 14px;
-    -fx-text-fill: #003366;
-}
-
-/* Détails de l'événement */
-.details-container {
-    -fx-background-color: #ffffff;
+/* ✅ Organisation du formulaire */
+.form-grid {
     -fx-padding: 20;
+    -fx-background-color: #FFFFFF;
     -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+    -fx-border-color: #748CF1;
+    -fx-border-width: 2;
+    -fx-spacing: 15;
+    -fx-alignment: center;
 }
 
-.details-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #0056b3; /* Bleu foncé */
-}
-
-/* Labels et champs de texte */
-.label-field {
-    -fx-font-size: 14px;
-    -fx-text-fill: #003366; /* Bleu foncé */
+/* ✅ Labels */
+.form-grid Label {
+    -fx-text-fill: #FD9999;
     -fx-font-weight: bold;
 }
 
+/* ✅ Champs de texte */
 TextField, TextArea, DatePicker {
-    -fx-border-color: #0056b3; /* Bleu foncé */
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+    -fx-pref-height: 45;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #748CF1;
+    -fx-border-radius: 10;
+    -fx-font-size: 14px;
     -fx-padding: 5;
+    -fx-pref-width: 100%;
 }
 
-/* Style des boutons d'action (ex: Inscription) */
-.inscription-button {
-    -fx-background-color: #00bcd4; /* Bleu-vert */
+/* ✅ Amélioration des champs au focus */
+TextField:focused, TextArea:focused, DatePicker:focused {
+    -fx-border-color: #748CF1;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(116, 140, 241, 0.5), 10, 0, 0, 0);
+}
+
+/* ✅ ImageView */
+#eventImageView {
+    -fx-border-color: #748CF1;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-padding: 10;
+    -fx-background-color: #FFFFFF;
+    -fx-max-width: 100%;
+}
+
+/* ✅ Bouton Upload */
+.upload-button {
+    -fx-background-color: #748CF1;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
     -fx-padding: 8 16;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-pref-width: 100%;
 }
 
-.inscription-button:hover {
-    -fx-background-color: #0097a7; /* Bleu-vert foncé au survol */
+.upload-button:hover {
+    -fx-background-color: #5A73D1;
 }
 
-/* TableView - Style des cellules */
-.table-view .column-header-background {
-    -fx-background-color: #009688; /* Vert */
+/* ✅ Boutons Enregistrer et Annuler */
+.button-container {
+    -fx-alignment: center;
+    -fx-spacing: 15;
 }
 
-.table-view .column-header {
+.save-button {
+    -fx-background-color: #FD9999;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-padding: 12;
+    -fx-pref-width: 48%;
+}
+
+.save-button:hover {
+    -fx-background-color: #E07A7A;
+}
+
+.cancel-button {
+    -fx-background-color: #748CF1;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-padding: 12;
+    -fx-pref-width: 48%;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #5A73D1;
 }

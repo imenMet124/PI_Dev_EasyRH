@@ -9,12 +9,15 @@
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.evenement.controllers.AdminEventsController">
 
     <stylesheets>
-        <String fx:value="style.css" />
+        <String fx:value="listEvents.css" />
+        <String fx:value="styles.css" />
     </stylesheets>
+
+
 
     <VBox spacing="20" styleClass="fade-in" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
-        <!-- En-tête moderne -->
+
         <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-container">
             <Text styleClass="header-title" text="Gestion des Événements" />
 
@@ -33,18 +36,7 @@
             </Button>
         </HBox>
 
-        <!-- TableView -->
-        <TableView fx:id="eventTable" styleClass="fade-in" VBox.vgrow="ALWAYS">
-            <columns>
-                <!-- <TableColumn fx:id="idCol" text="ID" prefWidth="60"/> -->
-                <TableColumn fx:id="titreCol" prefWidth="200" text="Titre" />
-                <!--   <TableColumn fx:id="descriptionCol" text="Description" prefWidth="300"/> -->
-                <TableColumn fx:id="dateCol" prefWidth="150" text="Date" />
-                <!--      <TableColumn fx:id="lieuCol" text="Lieu" prefWidth="150"/> -->
-                <TableColumn fx:id="capaciteCol" prefWidth="100" text="Capacité" />
-                <TableColumn fx:id="participantsCol" prefWidth="100" text="Participants" />
-                <TableColumn fx:id="actionCol" prefWidth="300" text="Action" />
-            </columns>
-        </TableView>
+
+        <ListView fx:id="eventListView" styleClass="fade-in" VBox.vgrow="ALWAYS" prefHeight="500" />
     </VBox>
 </AnchorPane>

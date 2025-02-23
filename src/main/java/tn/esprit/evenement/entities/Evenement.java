@@ -1,39 +1,49 @@
 package tn.esprit.evenement.entities;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Evenement {
     private int id;
     private String titre;
     private String description;
-    private Timestamp date;
+    private Date date;
+    private Time heure;
     private String lieu;
     private int capacite;
-    private int nombreParticipants; // Nouvel attribut
+    private int nombreParticipants;
+    private String imagePath; // Chemin de l'image (peut être NULL)
 
-
+    // ✅ Constructeur par défaut
     public Evenement() {}
 
-    public Evenement(int id, String titre, String description, Timestamp date, String lieu, int capacite , int nombreParticipants) {
+    // ✅ Constructeur avec ID (pour la récupération depuis la base de données)
+    public Evenement(int id, String titre, String description, Date date, Time heure, String lieu, int capacite, int nombreParticipants, String imagePath) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.date = date;
+        this.heure = heure;
         this.lieu = lieu;
         this.capacite = capacite;
         this.nombreParticipants = nombreParticipants;
+        this.imagePath = imagePath;
     }
-    public Evenement(String titre, String description, Timestamp date, String lieu, int capacite) {
+
+    // ✅ Constructeur sans ID (pour l'ajout d'un nouvel événement)
+    public Evenement(String titre, String description, Date date, Time heure, String lieu, int capacite, String imagePath) {
         this.titre = titre;
         this.description = description;
         this.date = date;
+        this.heure = heure;
         this.lieu = lieu;
         this.capacite = capacite;
-        this.nombreParticipants = 0;
+        this.nombreParticipants = 0; // Initialisation à 0
+        this.imagePath = imagePath;
     }
 
-    // Getters and Setters
+    // ✅ Getters et Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -43,8 +53,11 @@ public class Evenement {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Timestamp getDate() { return date; }
-    public void setDate(Timestamp date) { this.date = date; }
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
+
+    public Time getHeure() { return heure; }
+    public void setHeure(Time heure) { this.heure = heure; }
 
     public String getLieu() { return lieu; }
     public void setLieu(String lieu) { this.lieu = lieu; }
@@ -52,14 +65,18 @@ public class Evenement {
     public int getCapacite() { return capacite; }
     public void setCapacite(int capacite) { this.capacite = capacite; }
 
-    public int getNombreParticipants() {
-        return nombreParticipants;
+    public int getNombreParticipants() { return nombreParticipants; }
+    public void setNombreParticipants(int nombreParticipants) { this.nombreParticipants = nombreParticipants; }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+
+    // ✅ Méthode pour incrémenter le nombre de participants
+    public void incrementerParticipants() {
+        this.nombreParticipants++;
     }
 
-    public void setNombreParticipants(int nombreParticipants) {
-        this.nombreParticipants = nombreParticipants;
-    }
-
+    // ✅ Méthode toString() pour afficher les infos de l'événement
     @Override
     public String toString() {
         return "Evenement{" +
@@ -67,11 +84,11 @@ public class Evenement {
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +
+                ", heure=" + heure +
                 ", lieu='" + lieu + '\'' +
                 ", capacite=" + capacite +
+                ", nombreParticipants=" + nombreParticipants +
+                ", imagePath='" + imagePath + '\'' +
                 '}';
     }
-
-    public void incrementerParticipants() {
-        this.nombreParticipants++;}
 }

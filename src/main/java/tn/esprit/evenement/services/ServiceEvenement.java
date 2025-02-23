@@ -14,33 +14,41 @@ public class ServiceEvenement implements IService<Evenement> {
         connection = MyDataBase.getInstance().getConnection();
     }
 
+    // ✅ Ajouter un événement avec image et heure
     @Override
     public void ajouter(Evenement evenement) throws SQLException {
-        String sql = "INSERT INTO `evenement`(`titre`, `description`, `date`, `lieu`, `capacite`,`nombreParticipants`) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO `evenement`(`titre`, `description`, `date`, `heure`, `lieu`, `capacite`, `nombreParticipants`, `image_path`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, evenement.getTitre());
         ps.setString(2, evenement.getDescription());
-        ps.setTimestamp(3, evenement.getDate());
-        ps.setString(4, evenement.getLieu());
-        ps.setInt(5, evenement.getCapacite());
-        ps.setInt(6, evenement.getNombreParticipants());
+        ps.setDate(3, evenement.getDate());
+        ps.setTime(4, evenement.getHeure()); // Nouveau champ heure
+        ps.setString(5, evenement.getLieu());
+        ps.setInt(6, evenement.getCapacite());
+        ps.setInt(7, evenement.getNombreParticipants());
+        ps.setString(8, evenement.getImagePath()); // Nouveau champ image_path
 
         ps.executeUpdate();
     }
 
+    // ✅ Modifier un événement avec image et heure
     @Override
     public void modifier(Evenement evenement) throws SQLException {
-        String sql = "UPDATE `evenement` SET `titre`=?, `description`=?, `date`=?, `lieu`=?, `capacite`=? WHERE `id`=?";
+        String sql = "UPDATE `evenement` SET `titre`=?, `description`=?, `date`=?, `heure`=?, `lieu`=?, `capacite`=?, `image_path`=? WHERE `id`=?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, evenement.getTitre());
         ps.setString(2, evenement.getDescription());
-        ps.setTimestamp(3, evenement.getDate());  // Utilisation de Timestamp pour gérer la date et l'heure
-        ps.setString(4, evenement.getLieu());
-        ps.setInt(5, evenement.getCapacite());
-        ps.setInt(6, evenement.getId());
+        ps.setDate(3, evenement.getDate());
+        ps.setTime(4, evenement.getHeure()); // Modification de l'heure
+        ps.setString(5, evenement.getLieu());
+        ps.setInt(6, evenement.getCapacite());
+        ps.setString(7, evenement.getImagePath()); // Modification de l'image
+        ps.setInt(8, evenement.getId());
+
         ps.executeUpdate();
     }
 
+    // ✅ Supprimer un événement
     @Override
     public void supprimer(int id) throws SQLException {
         String sql = "DELETE FROM `evenement` WHERE `id`=?";
@@ -49,6 +57,7 @@ public class ServiceEvenement implements IService<Evenement> {
         ps.executeUpdate();
     }
 
+    // ✅ Afficher tous les événements avec heure et image
     @Override
     public List<Evenement> afficher() throws SQLException {
         List<Evenement> evenements = new ArrayList<>();
@@ -56,28 +65,28 @@ public class ServiceEvenement implements IService<Evenement> {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
-        System.out.println("Nombre d'événements récupérés : " + rs.getRow()); // Affiche le nombre de lignes
-
         while (rs.next()) {
             Evenement evenement = new Evenement(
                     rs.getInt("Id"),
                     rs.getString("Titre"),
                     rs.getString("Description"),
-                    rs.getTimestamp("Date"),
+                    rs.getDate("Date"),
+                    rs.getTime("Heure"), // Ajout de l'heure
                     rs.getString("Lieu"),
                     rs.getInt("Capacite"),
-                    rs.getInt("NombreParticipants")
+                    rs.getInt("NombreParticipants"),
+                    rs.getString("image_path") // Ajout de l'image
             );
             evenements.add(evenement);
-
-            // Afficher les détails de chaque événement pour vérifier
-            System.out.println("Événement récupéré : " + evenement.getTitre() + ", " + evenement.getDate());
         }
         return evenements;
     }
+
+    // ✅ Incrémenter le nombre de participants
     public void incrementerParticipants(int evenementId) throws SQLException {
         String sql = "UPDATE `evenement` SET `nombreParticipants` = `nombreParticipants` + 1 WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, evenementId);
         ps.executeUpdate();
-    }}
+    }
+}

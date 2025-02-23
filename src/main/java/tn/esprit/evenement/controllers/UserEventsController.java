@@ -84,7 +84,7 @@ public class UserEventsController implements Initializable {
 //            datePicker.setValue(LocalDate.ofEpochDay(localDate));
 //        }
 
-        datePicker.setValue(event.getDate().toLocalDateTime().toLocalDate());
+      //  datePicker.setValue(event.getDate().toLocalDateTime().toLocalDate());
         lieuField.setText(event.getLieu());
         capaciteField.setText(String.valueOf(event.getCapacite()));
         nombreParticipationField.setText(String.valueOf(event.getCapacite()));
