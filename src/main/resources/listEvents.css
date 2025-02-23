@@ -115,3 +115,94 @@
 .details-button:hover {
     -fx-background-color: #1976D2;
 }
+.action-icon {
+    -fx-icon-color: white !important;
+    -fx-fill: white !important;
+}
+/* Style de la ListView */
+.event-list {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Style des éléments de la liste */
+.event-list .list-cell {
+    -fx-background-color: white;
+    -fx-border-color: #E5E5E5;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 5, 0, 0, 2);
+}
+
+.event-list .list-cell:hover {
+    -fx-background-color: #F8F9FB;
+}
+
+/* Style des cellules sélectionnées */
+.event-list .list-cell:selected {
+    -fx-background-color: #E5E7EB;
+    -fx-text-fill: black;
+}
+
+/* Style des labels */
+.event-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+/* Style des titres en gras */
+.event-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+/* Conteneur principal des événements */
+.event-container {
+    -fx-padding: 12px;
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-border-color: #E5E5E5;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+/* Assurer que le bouton est parfaitement rond */
+.event-action-button {
+    -fx-background-radius: 50%;
+    -fx-shape: "M50,25a25,25 0 1,1 -50,0a25,25 0 1,1 50,0"; /* Force un vrai cercle */
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 4, 0, 0, 2);
+}
+
+
+.delete-button {
+    -fx-background-color: #F44336 !important; /* Rouge */
+}
+
+.details-button {
+    -fx-background-color: #2196F3 !important; /* Bleu */
+}
+
+
+.delete-button:hover {
+    -fx-background-color: #D32F2F !important;
+}
+
+.details-button:hover {
+    -fx-background-color: #1976D2 !important;
+}
+
+/* Style des icônes blanches */
+.event-icon {
+    -fx-fill: white !important;
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+}

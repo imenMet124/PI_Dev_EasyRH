@@ -6,16 +6,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.evenement.controllers.HomePage">
 
     <stylesheets>
+        <String fx:value="listEvents.css" />
         <String fx:value="styles.css" />
     </stylesheets>
 
+
     <HBox spacing="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-        <!-- Sidebar -->
+    <!-- Sidebar -->
         <VBox styleClass="sidebar" spacing="10" alignment="TOP_LEFT" prefWidth="250.0">
-            <Label text="METRONIC" styleClass="logo" />
+            <ImageView fx:id="logoImage" fitHeight="600" fitWidth="200" preserveRatio="true" styleClass="logo" />
             <Button text="Dashboard" styleClass="sidebar-button" />
             <Button onAction="#handleListEvent" text="Evenments" styleClass="sidebar-button" />
             <Button text="Taches" styleClass="sidebar-button" />

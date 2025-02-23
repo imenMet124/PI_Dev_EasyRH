@@ -7,10 +7,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class HomePage extends Application {
+    @FXML
+    private ImageView logoImage;
+
+    @FXML
+    public void initialize() {
+        try {
+            if (logoImage != null) {
+                // Charger l'image depuis le dossier resources/images/
+                Image image = new Image(getClass().getResource("/logo.jpg").toExternalForm());
+                logoImage.setImage(image);
+            } else {
+                System.out.println("ERREUR: `logoImage` est NULL ! Vérifie le `fx:id` dans le FXML.");
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur lors du chargement du logo : " + e.getMessage());
+        }
+    }
     @Override
     public void start(Stage primaryStage) {
         try {

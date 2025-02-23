@@ -7,15 +7,25 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import tn.esprit.evenement.entities.Evenement;
 import tn.esprit.evenement.services.ServiceEvenement;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -23,6 +33,9 @@ import java.util.ResourceBundle;
 public class AdminEventsController implements Initializable {
     @FXML
     private ListView<Evenement> eventListView;
+
+    @FXML
+    private ImageView logoImage;
 
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
 
@@ -47,6 +60,22 @@ public class AdminEventsController implements Initializable {
         }
     }
 
+    public void goToIndex(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/IndexView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Assurer que la scène garde la même taille
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private class EventListCell extends ListCell<Evenement> {
         @Override
         protected void updateItem(Evenement event, boolean empty) {
@@ -54,61 +83,74 @@ public class AdminEventsController implements Initializable {
             if (empty || event == null) {
                 setGraphic(null);
             } else {
-                HBox container = new HBox(20); // Conteneur principal
-                container.setStyle("-fx-padding: 10; -fx-border-color: #ddd; -fx-background-color: #f9f9f9; -fx-border-radius: 5; -fx-background-radius: 5;");
+                // Charger l'image depuis le dossier resources/images/
+                Image image = new Image(getClass().getResource("/logo.jpg").toExternalForm());
+                logoImage.setImage(image);
 
-                // Création des labels pour afficher les informations de l'événement
-                Label titleLabel = new Label("Titre: ");
-                titleLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
-                Label titleValue = new Label(event.getTitre());
-                titleValue.setStyle("-fx-text-fill: black;");
+                HBox container = new HBox(15);
+                container.getStyleClass().add("event-container");
+                container.setAlignment(Pos.CENTER_LEFT);
 
-                Label dateLabel = new Label("Date: ");
-                dateLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
-                Label dateValue = new Label(event.getDate().toString()); // Utilisation de Date
+                // Titres et valeurs
+                VBox textContainer = new VBox(5);
+                Label title = new Label(event.getTitre());
+                title.getStyleClass().add("event-title");
 
-                Label heureLabel = new Label("Heure: ");
-                heureLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
-                Label heureValue = new Label(event.getHeure().toString()); // Utilisation de Time
+                Label date = new Label("📅 " + event.getDate().toString());
+                date.getStyleClass().add("event-label");
 
-                Label capacityLabel = new Label("Capacité: ");
-                capacityLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
-                Label capacityValue = new Label(String.valueOf(event.getCapacite()));
+                Label heure = new Label("⏰ " + event.getHeure().toString());
+                heure.getStyleClass().add("event-label");
 
-                Label participantsLabel = new Label("Participants: ");
-                participantsLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
-                Label participantsValue = new Label(String.valueOf(event.getNombreParticipants()));
+                Label capacity = new Label("👥 Capacité: " + event.getCapacite());
+                capacity.getStyleClass().add("event-label");
 
-                // Création des boutons d'actions
-                Button modifyButton = createIconButton(FontAwesomeIcon.PENCIL, "#4CAF50");
-                Button deleteButton = createIconButton(FontAwesomeIcon.TRASH, "#F44336");
-                Button detailsButton = createIconButton(FontAwesomeIcon.EYE, "#2196F3");
+                Label participants = new Label("🎟 Participants: " + event.getNombreParticipants());
+                participants.getStyleClass().add("event-label");
+
+                textContainer.getChildren().addAll(title, date, heure, capacity, participants);
+
+                // Boutons d'action
+                HBox actionBox = new HBox(10);
+                actionBox.setAlignment(Pos.CENTER_RIGHT);
+
+                Button modifyButton = createIconButton(FontAwesomeIcon.PENCIL, "modify-button");
+                Button deleteButton = createIconButton(FontAwesomeIcon.TRASH, "delete-button");
+                Button detailsButton = createIconButton(FontAwesomeIcon.EYE, "details-button");
 
                 modifyButton.setOnAction(e -> handleModifyEvent(event));
                 deleteButton.setOnAction(e -> handleDeleteEvent(event));
                 detailsButton.setOnAction(e -> handleDetailsEvent(event));
 
-                // Ajout des icônes dans un HBox pour qu'elles restent sur la même ligne
-                HBox actionBox = new HBox(10, modifyButton, deleteButton, detailsButton);
+                actionBox.getChildren().addAll(modifyButton, deleteButton, detailsButton);
 
-                // Ajout des éléments dans le container principal
-                container.getChildren().addAll(titleLabel, titleValue, dateLabel, dateValue, heureLabel, heureValue, capacityLabel, capacityValue, participantsLabel, participantsValue, actionBox);
-
+                // Assemblage final
+                container.getChildren().addAll(textContainer, actionBox);
+                HBox.setHgrow(textContainer, Priority.ALWAYS);
                 setGraphic(container);
             }
         }
+
+        private Button createIconButton(FontAwesomeIcon icon, String styleClass) {
+            FontAwesomeIconView iconView = new FontAwesomeIconView(icon);
+            iconView.setSize("18");  // Taille idéale pour le bouton
+            iconView.getStyleClass().add("event-icon");
+
+            Button button = new Button();
+            button.setGraphic(iconView);
+            button.getStyleClass().addAll("event-action-button", styleClass);
+
+            // Assurer une vraie forme circulaire
+            button.setMinSize(40, 40);
+            button.setMaxSize(40, 40);
+            button.setShape(new Circle(20)); // IMPORTANT : Forcer la forme du bouton en cercle
+
+            return button;
+        }
+
+
     }
 
-    private Button createIconButton(FontAwesomeIcon icon, String color) {
-        FontAwesomeIconView iconView = new FontAwesomeIconView(icon);
-        iconView.setSize("14");
-        iconView.setFill(Color.valueOf(color));
-
-        Button button = new Button();
-        button.setGraphic(iconView);
-        button.setStyle("-fx-background-color: transparent;");
-        return button;
-    }
 
     private void handleModifyEvent(Evenement event) {
         try {
