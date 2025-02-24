@@ -66,7 +66,6 @@ public class AdminEventsController implements Initializable {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Assurer que la scène garde la même taille
             Scene scene = new Scene(root, 800, 600);
             stage.setScene(scene);
             stage.show();
@@ -83,7 +82,6 @@ public class AdminEventsController implements Initializable {
             if (empty || event == null) {
                 setGraphic(null);
             } else {
-                // Charger l'image depuis le dossier resources/images/
                 Image image = new Image(getClass().getResource("/logo.jpg").toExternalForm());
                 logoImage.setImage(image);
 

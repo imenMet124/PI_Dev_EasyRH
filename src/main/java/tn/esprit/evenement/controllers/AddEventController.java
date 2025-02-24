@@ -32,7 +32,6 @@ public class AddEventController {
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     private String imagePath = null;
 
-    // ✅ Gérer l'ajout d'un événement
     @FXML
     private void handleAjouterEvent() {
         if (!validateFields()) {
@@ -40,7 +39,6 @@ public class AddEventController {
             return;
         }
 
-        // ✅ Création de l'objet Evenement
         Evenement newEvent = new Evenement(
                 titreField.getText(),
                 descriptionField.getText(),
@@ -60,7 +58,6 @@ public class AddEventController {
         }
     }
 
-    // ✅ Vérifier les champs obligatoires
     private boolean validateFields() {
         return !titreField.getText().isEmpty() &&
                 !descriptionField.getText().isEmpty() &&
@@ -70,7 +67,6 @@ public class AddEventController {
                 !capaciteField.getText().isEmpty();
     }
 
-    // ✅ Gérer l'upload d'image
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -97,7 +93,6 @@ public class AddEventController {
         }
     }
 
-    // ✅ Annuler l'ajout
     @FXML
     private void handleCancel() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -117,13 +112,11 @@ public class AddEventController {
         });
     }
 
-    // ✅ Fermer la fenêtre
     private void closeWindow() {
         Stage stage = (Stage) titreField.getScene().getWindow();
         stage.close();
     }
 
-    // ✅ Afficher une alerte
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

@@ -20,7 +20,7 @@
         <VBox styleClass="sidebar" spacing="10" alignment="TOP_LEFT" prefWidth="250.0">
             <ImageView fx:id="logoImage" fitHeight="600" fitWidth="200" preserveRatio="true" styleClass="logo" />
             <Button text="Dashboard" styleClass="sidebar-button" />
-            <Button onAction="#handleListEvent" text="Evenments" styleClass="sidebar-button" />
+            <Button onAction="#handleListEvent" text="Evenements" styleClass="sidebar-button" />
             <Button text="Taches" styleClass="sidebar-button" />
             <Button text="Offres" styleClass="sidebar-button" />
             <Button text="Formations" styleClass="sidebar-button" />

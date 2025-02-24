@@ -31,7 +31,6 @@ public class ServiceEvenement implements IService<Evenement> {
         ps.executeUpdate();
     }
 
-    // ✅ Modifier un événement avec image et heure
     @Override
     public void modifier(Evenement evenement) throws SQLException {
         String sql = "UPDATE `evenement` SET `titre`=?, `description`=?, `date`=?, `heure`=?, `lieu`=?, `capacite`=?, `image_path`=? WHERE `id`=?";
@@ -49,7 +48,6 @@ public class ServiceEvenement implements IService<Evenement> {
     }
 
 
-    // ✅ Supprimer un événement
     @Override
     public void supprimer(int id) throws SQLException {
         String sql = "DELETE FROM `evenement` WHERE `id`=?";
@@ -58,7 +56,6 @@ public class ServiceEvenement implements IService<Evenement> {
         ps.executeUpdate();
     }
 
-    // ✅ Afficher tous les événements avec heure et image
     @Override
     public List<Evenement> afficher() throws SQLException {
         List<Evenement> evenements = new ArrayList<>();
@@ -83,7 +80,6 @@ public class ServiceEvenement implements IService<Evenement> {
         return evenements;
     }
 
-    // ✅ Incrémenter le nombre de participants
     public void incrementerParticipants(int evenementId) throws SQLException {
         String sql = "UPDATE `evenement` SET `nombreParticipants` = `nombreParticipants` + 1 WHERE `id` = ?";
         PreparedStatement ps = connection.prepareStatement(sql);

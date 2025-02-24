@@ -37,9 +37,6 @@ public class UserEventsController implements Initializable {
         currentUser = serviceUtilisateur.getUtilisateurParId(1); // Simule un utilisateur connecté
     }
 
-    /**
-     * ✅ Charger la liste des événements disponibles
-     */
     private void loadEventList() {
         try {
             ObservableList<Evenement> events = FXCollections.observableArrayList(serviceEvenement.afficher());
@@ -49,9 +46,7 @@ public class UserEventsController implements Initializable {
         }
     }
 
-    /**
-     * ✅ Gérer l'inscription à un événement
-     */
+
     @FXML
     private void handleInscription() {
         Evenement selectedEvent = eventListView.getSelectionModel().getSelectedItem();
@@ -60,13 +55,11 @@ public class UserEventsController implements Initializable {
             LocalDate currentDate = LocalDate.now();
 
             try {
-                // Vérifier si la capacité de l'événement est atteinte
                 if (selectedEvent.getNombreParticipants() >= selectedEvent.getCapacite()) {
                     showAlert("Erreur", "Cet événement est complet. Impossible de s'inscrire.");
                     return;
                 }
 
-                // Vérifier si l'utilisateur est déjà inscrit
                 boolean alreadyRegistered = serviceParticipation.getParticipationsParUtilisateur(currentUser.getId())
                         .stream().anyMatch(p -> p.getEvenement().getId() == selectedEvent.getId());
 
@@ -75,13 +68,10 @@ public class UserEventsController implements Initializable {
                     return;
                 }
 
-                // Créer une nouvelle participation
                 Participation newParticipation = new Participation(selectedEvent, currentUser, currentDate, "En attente");
 
-                // Ajouter la participation à la base de données
                 serviceParticipation.ajouterParticipation(newParticipation);
 
-                // Incrémenter le nombre de participants de l'événement
                 serviceEvenement.incrementerParticipants(selectedEvent.getId());
 
                 showAlert("Succès", "Vous êtes inscrit à l'événement: " + selectedEvent.getTitre());
@@ -94,9 +84,7 @@ public class UserEventsController implements Initializable {
         }
     }
 
-    /**
-     * ✅ Afficher les détails d'un événement sélectionné
-     */
+
     @FXML
     private void handleDetailsEvent() {
         Evenement selectedEvent = eventListView.getSelectionModel().getSelectedItem();
@@ -120,17 +108,13 @@ public class UserEventsController implements Initializable {
         }
     }
 
-    /**
-     * ✅ Rafraîchir la liste des événements
-     */
+
     @FXML
     private void handleRefresh() {
         loadEventList();
     }
 
-    /**
-     * ✅ Afficher une alerte d'information
-     */
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

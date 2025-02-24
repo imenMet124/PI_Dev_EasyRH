@@ -9,7 +9,6 @@ public class Participation {
     private LocalDate dateInscription;
     private String statut; // "Confirmé", "Annulé", "En attente"
 
-    // 🔹 Constructeur avec ID de participation (pour récupération depuis la base)
     public Participation(int idParticipation, Evenement evenement, Utilisateur participant, LocalDate dateInscription, String statut) {
         this.idParticipation = idParticipation;
         this.evenement = evenement;
@@ -18,7 +17,6 @@ public class Participation {
         this.statut = statut;
     }
 
-    // 🔹 Constructeur sans ID de participation (pour création avant insertion)
     public Participation(Evenement evenement, Utilisateur participant, LocalDate dateInscription, String statut) {
         this.evenement = evenement;
         this.participant = participant;
@@ -26,7 +24,6 @@ public class Participation {
         this.statut = statut;
     }
 
-    // ✅ Getters
     public int getIdParticipation() {
         return idParticipation;
     }
@@ -47,7 +44,6 @@ public class Participation {
         return statut;
     }
 
-    // ✅ Setters
     public void setStatut(String statut) {
         this.statut = statut;
     }

@@ -17,7 +17,7 @@ public class ServiceParticipation {
         this.connection = MyDataBase.getInstance().getConnection();
     }
 
-    // ✅ Ajouter une participation avec un objet `Evenement` et `Utilisateur`
+
     public void ajouterParticipation(Participation p) {
         String req = "INSERT INTO participation (Id_Evenement, Participant, `Date inscription`, Statut) VALUES (?, ?, ?, ?)";
         try {
@@ -33,7 +33,7 @@ public class ServiceParticipation {
         }
     }
 
-    // ✅ Modifier le statut d'une participation
+
     public void modifierStatut(int idParticipation, String nouveauStatut) {
         String req = "UPDATE participation SET Statut = ? WHERE Id_Participation = ?";
         try {
@@ -47,7 +47,6 @@ public class ServiceParticipation {
         }
     }
 
-    // ✅ Supprimer une participation
     public void supprimerParticipation(int idParticipation) {
         String req = "DELETE FROM participation WHERE Id_Participation = ?";
         try {
@@ -60,7 +59,6 @@ public class ServiceParticipation {
         }
     }
 
-    // ✅ Récupérer toutes les participations d'un utilisateur avec des objets `Evenement` et `Utilisateur`
     public List<Participation> getParticipationsParUtilisateur(int idUser) {
         List<Participation> participations = new ArrayList<>();
         String req = "SELECT p.Id_Participation, p.`Date inscription`, p.Statut, " +
@@ -77,11 +75,11 @@ public class ServiceParticipation {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                // ✅ Création d'objets `Evenement` et `Utilisateur`
+
                 Evenement event = new Evenement(rs.getInt("event_id"), rs.getString("event_titre"), rs.getDate("event_date").toLocalDate());
                 Utilisateur user = new Utilisateur(rs.getInt("user_id"), rs.getString("user_nom"));
 
-                // ✅ Création d'un objet `Participation`
+
                 Participation participation = new Participation(
                         rs.getInt("Id_Participation"),
                         event,  // Passer un objet `Evenement`

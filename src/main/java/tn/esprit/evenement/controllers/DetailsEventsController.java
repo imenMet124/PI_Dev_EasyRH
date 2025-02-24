@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import tn.esprit.evenement.entities.Evenement;
 
@@ -20,7 +22,8 @@ public class DetailsEventsController {
     @FXML private Label lieuLabel;
     @FXML private Label capaciteLabel;
     @FXML private Label participantsLabel;
-    @FXML private TextArea descriptionArea;
+   // @FXML private TextArea descriptionArea;
+   @FXML private TextFlow descriptionContainer;
     @FXML private Button closeButton;
 
     private Evenement evenement;
@@ -34,7 +37,10 @@ public class DetailsEventsController {
         lieuLabel.setText(event.getLieu());
         capaciteLabel.setText(String.valueOf(event.getCapacite()));
         participantsLabel.setText(String.valueOf(event.getNombreParticipants()));
-        descriptionArea.setText(event.getDescription());
+    //   descriptionArea.setText(event.getDescription());
+        Text descriptionText = new Text(event.getDescription());
+        descriptionContainer.getChildren().clear(); // Nettoyer avant d'ajouter
+        descriptionContainer.getChildren().add(descriptionText);
 
         // Gestion de l'affichage de l'image
         if (event.getImagePath() != null && !event.getImagePath().isEmpty()) {

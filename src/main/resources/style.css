@@ -1,164 +1,129 @@
-/* ✅ Style général */
-.details-container {
-    -fx-background-color: linear-gradient(to right, #F0F2F5, #FFFFFF);
-    -fx-padding: 40;
-    -fx-spacing: 20;
-    -fx-alignment: center;
-    -fx-pref-width: 100%;
-    -fx-pref-height: 100%;
+/* 🌟 Style général */
+.root {
+    -fx-background-color: #F4F5FA;
+    -fx-padding: 20px;
+    -fx-font-family: 'Arial';
 }
 
-/* ✅ Conteneur du formulaire */
-.form-container {
-    -fx-background-color: #FFFFFF;
-    -fx-padding: 30;
-    -fx-border-radius: 15;
-    -fx-border-color: #748CF1;
-    -fx-border-width: 2;
-    -fx-alignment: center;
-    -fx-max-width: 800px;
-    -fx-pref-width: 60%;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+/* 📌 Conteneur principal */
+.container {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-border-color: #E5E5E5;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 3);
+    -fx-padding: 20px;
 }
 
-/* ✅ Titre principal */
-.details-title {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #748CF1;
-    -fx-alignment: center;
-}
-
-/* ✅ Organisation du formulaire */
-.form-grid {
-    -fx-padding: 20;
-    -fx-background-color: #FFFFFF;
-    -fx-border-radius: 10;
-    -fx-border-color: #748CF1;
-    -fx-border-width: 2;
-    -fx-spacing: 15;
-    -fx-alignment: center;
-}
-
-/* ✅ Labels */
-.form-grid Label {
-    -fx-text-fill: #FD9999;
-    -fx-font-weight: bold;
-}
-
-/* ✅ Champs de texte et DatePicker */
-TextField, TextArea, DatePicker {
-    -fx-pref-height: 45;
-    -fx-background-color: #F9FAFC;
-    -fx-border-color: #748CF1;
-    -fx-border-radius: 10;
+/* 📝 Labels */
+.label {
     -fx-font-size: 14px;
-    -fx-padding: 10;
-    -fx-pref-width: 100%;
+    -fx-text-fill: #555;
 }
 
-/* ✅ Effet interactif sur les champs */
-TextField:focused, TextArea:focused, DatePicker:focused {
-    -fx-border-color: #748CF1;
-    -fx-border-width: 2;
-    -fx-effect: dropshadow(three-pass-box, rgba(116, 140, 241, 0.5), 10, 0, 0, 0);
+/* 📦 Champs de texte */
+.text-field, .text-area, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #E5E5E5;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
 }
 
-/* ✅ ImageView */
-#eventImageView {
-    -fx-border-color: #748CF1;
-    -fx-border-radius: 10;
-    -fx-border-width: 3;
-    -fx-padding: 10;
-    -fx-background-color: #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+.text-field:focused, .text-area:focused, .date-picker:focused {
+    -fx-border-color: #6A5ACD;
 }
 
-/* ✅ Bouton Upload */
-.upload-button {
-    -fx-background-color: #748CF1;
+/* ✅ Champ d'image stylisé */
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #E5E5E5;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+/* 📸 Bouton "Ajouter une image" aligné comme un champ */
+.upload-field-button {
+    -fx-background-color: #FF758C;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10;
-    -fx-padding: 10 20;
-    -fx-pref-width: 100%;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
 }
 
-.upload-button:hover {
-    -fx-background-color: #5A73D1;
+.upload-field-button:hover {
+    -fx-background-color: #FF5A7A;
 }
 
-/* ✅ Conteneur des boutons */
-.button-container {
-    -fx-alignment: center;
-    -fx-spacing: 20;
-}
-
-/* ✅ Bouton Annuler */
+/* 🔘 Boutons Annuler & Ajouter */
 .cancel-button {
-    -fx-background-color: #748CF1;
+    -fx-background-color: #5867DD;
     -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10;
-    -fx-padding: 12;
-    -fx-pref-width: 160px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 5px;
 }
 
 .cancel-button:hover {
-    -fx-background-color: #5A73D1;
+    -fx-background-color: #4857C2;
 }
 
-/* ✅ Bouton Enregistrer */
 .save-button {
-    -fx-background-color: #FD9999;
+    -fx-background-color: #4CAF50;
     -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10;
-    -fx-padding: 12;
-    -fx-pref-width: 160px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 5px;
 }
 
 .save-button:hover {
-    -fx-background-color: #E07A7A;
-}
-/* ✅ Style du conteneur de l'upload */
-.image-upload-container {
-    -fx-alignment: center;
-    -fx-spacing: 10;
+    -fx-background-color: #45A049;
 }
 
-/* ✅ Champ texte du chemin de l'image */
-#imagePathField {
-    -fx-pref-height: 40;
-    -fx-background-color: #F9FAFC;
-    -fx-border-color: #748CF1;
-    -fx-border-radius: 10;
+/* 🌟 Effet ombre */
+.shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+/* ✅ Champ Image */
+.image-pane {
+    -fx-alignment: left;
+}
+
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #E5E5E5;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
     -fx-font-size: 14px;
-    -fx-padding: 10;
-    -fx-pref-width: 250px;
 }
 
-/* ✅ Bouton Upload */
-.upload-button {
-    -fx-background-color: #748CF1;
+.upload-field-button {
+    -fx-background-color: #FF758C;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10;
-    -fx-padding: 10 15;
     -fx-font-size: 14px;
-    -fx-alignment: center;
-    -fx-min-width: 120px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
 }
 
-/* ✅ Icône du bouton Upload */
-.upload-button .graphic {
-    -fx-font-size: 16px;
-    -fx-fill: white;
+.upload-field-button:hover {
+    -fx-background-color: #FF5A7A;
+}
+.image-label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #0078D7;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
 }
 
-/* ✅ Effet au survol */
-.upload-button:hover {
-    -fx-background-color: #5A73D1;
+.image-label:hover {
+    -fx-text-fill: #005A9E;
+    -fx-underline: true;
 }
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold; /* ✅ Met le texte en gras */
+    -fx-text-fill: #333; /* ✅ Couleur foncée pour une meilleure lisibilité */
+    -fx-padding: 10px 0;
+}
+

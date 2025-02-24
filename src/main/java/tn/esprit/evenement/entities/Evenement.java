@@ -13,12 +13,10 @@ public class Evenement {
     private String lieu;
     private int capacite;
     private int nombreParticipants;
-    private String imagePath; // Chemin de l'image (peut être NULL)
+    private String imagePath;
 
-    // ✅ Constructeur par défaut
     public Evenement(int eventId, String eventTitre, LocalDate eventDate) {}
 
-    // ✅ Constructeur avec ID (pour la récupération depuis la base de données)
     public Evenement(int id, String titre, String description, Date date, Time heure, String lieu, int capacite, int nombreParticipants, String imagePath) {
         this.id = id;
         this.titre = titre;
@@ -31,7 +29,6 @@ public class Evenement {
         this.imagePath = imagePath;
     }
 
-    // ✅ Constructeur sans ID (pour l'ajout d'un nouvel événement)
     public Evenement(String titre, String description, Date date, Time heure, String lieu, int capacite, String imagePath) {
         this.titre = titre;
         this.description = description;
@@ -43,7 +40,6 @@ public class Evenement {
         this.imagePath = imagePath;
     }
 
-    // ✅ Getters et Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -71,12 +67,12 @@ public class Evenement {
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
-    // ✅ Méthode pour incrémenter le nombre de participants
+
     public void incrementerParticipants() {
         this.nombreParticipants++;
     }
 
-    // ✅ Méthode toString() pour afficher les infos de l'événement
+
     @Override
     public String toString() {
         return "Evenement{" +

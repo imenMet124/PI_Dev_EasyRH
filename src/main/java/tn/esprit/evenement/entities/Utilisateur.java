@@ -11,7 +11,6 @@ public class Utilisateur {
         AdminRH, Employe
     }
 
-    // Constructeurs
     public Utilisateur(int userId, String userNom) {}
 
     public Utilisateur(int id, String nom, String prenom, String email, Role role) {
@@ -22,7 +21,6 @@ public class Utilisateur {
         this.role = role;
     }
 
-    // Getters et Setters
     public int getId() {
         return id;
     }

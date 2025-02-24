@@ -88,7 +88,6 @@ public class ModifyEventsController {
 //       }
     }
 
-    // ✅ Upload et sélection d'une nouvelle image
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -102,14 +101,12 @@ public class ModifyEventsController {
                     destDir.mkdirs();
                 }
 
-                // ✅ Générer un nom unique pour l'image
+
                 String newFileName = System.currentTimeMillis() + "_" + selectedFile.getName();
                 File destFile = new File(destDir, newFileName);
 
-                // ✅ Copier l'image sélectionnée dans le dossier
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-                // ✅ Afficher la nouvelle image et enregistrer son chemin
                 eventImageView.setImage(new Image(destFile.toURI().toString()));
                 newImagePath = destFile.getAbsolutePath();
                 imagePathField.setText(newImagePath);
@@ -120,7 +117,6 @@ public class ModifyEventsController {
         }
     }
 
-    // ✅ Modification de l'événement (y compris l'image)
     @FXML
     private void handleModifierEvent() {
         if (eventToModify == null) {
@@ -128,7 +124,6 @@ public class ModifyEventsController {
             return;
         }
 
-        // ✅ Mise à jour des champs
         eventToModify.setTitre(titreField.getText());
         eventToModify.setDescription(descriptionField.getText());
         eventToModify.setDate(Date.valueOf(datePicker.getValue()));
@@ -136,7 +131,6 @@ public class ModifyEventsController {
         eventToModify.setLieu(lieuField.getText());
         eventToModify.setCapacite(Integer.parseInt(capaciteField.getText()));
 
-        // ✅ Mise à jour de l'image si une nouvelle image a été uploadée
         if (newImagePath != null) {
             eventToModify.setImagePath(newImagePath);
         }
