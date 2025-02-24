@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,10 +11,55 @@
 
 <ScrollPane prefHeight="450.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Offres.controllers.AjoutController">
    <content>
-      <AnchorPane prefHeight="430.0" prefWidth="714.0">
+      <AnchorPane prefHeight="444.0" prefWidth="678.0">
          <children>
-            <VBox layoutX="6.0" layoutY="5.0" prefHeight="394.0" prefWidth="100.0" styleClass="vbox-container" stylesheets="@Style.css" />
-            <HBox layoutX="106.0" layoutY="5.0" prefHeight="52.0" prefWidth="592.0" styleClass="hbox-style" stylesheets="@Style.css" />
+            <VBox layoutX="6.0" layoutY="5.0" prefHeight="439.0" prefWidth="79.0" styleClass="vbox-container" stylesheets="@Style.css">
+               <children>
+                  <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/Logo.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon1.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="30.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="43.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon2.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="49.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon3.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="59.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon4.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="80.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children></VBox>
+            <HBox layoutX="100.0" layoutY="5.0" prefHeight="52.0" prefWidth="634.0" styleClass="hbox-style" stylesheets="@Style.css">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Offre" />
+               </children></HBox>
             <TextField id="a" fx:id="titre" layoutX="123.0" layoutY="108.0" prefHeight="22.0" prefWidth="200.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />
             <TextArea id="b" fx:id="desc" layoutX="123.0" layoutY="176.0" prefHeight="136.0" prefWidth="234.0" styleClass="textarea-modern" stylesheets="@Style.css" />
             <TextField fx:id="dep" layoutX="388.0" layoutY="119.0" prefHeight="22.0" prefWidth="200.0" styleClass="textfield-modern-white" stylesheets="@Style.css" />

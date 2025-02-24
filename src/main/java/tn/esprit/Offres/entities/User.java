@@ -34,6 +34,9 @@ public class User {
     public User(int key, String nomEmp, String email, String phone, String position, double salaire, java.sql.Date dateEmbauche, String statutEmp, String department) {
     }
 
+    public User(int i, String s) {
+    }
+
     // Getters and Setters
         public int getIdEmp() {
             return idEmp;

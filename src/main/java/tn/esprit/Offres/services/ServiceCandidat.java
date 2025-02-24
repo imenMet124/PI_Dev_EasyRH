@@ -1,7 +1,7 @@
 package tn.esprit.Offres.services;
 
 import tn.esprit.Offres.entities.Candidat;
-import tn.esprit.Offres.entities.User; // Importez l'entité User
+import tn.esprit.Offres.entities.User;
 import tn.esprit.Offres.utils.Base;
 
 import java.sql.Connection;

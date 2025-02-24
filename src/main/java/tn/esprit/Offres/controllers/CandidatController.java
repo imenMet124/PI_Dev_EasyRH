@@ -80,7 +80,6 @@ public class CandidatController {
         depC.setText(user.getDepartment());
         telC.setText(user.getPhone());
         posteC.setText(user.getPosition());
-
         // Rendre les champs non éditables pour éviter la modification
 
     }

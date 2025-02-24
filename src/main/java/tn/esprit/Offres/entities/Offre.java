@@ -3,6 +3,7 @@ package tn.esprit.Offres.entities;
 import java.time.LocalDate;
 import java.util.Date;
 
+
 public class Offre {
     private int idOffre;
     private String titrePoste;
@@ -17,7 +18,16 @@ public class Offre {
 
     public Offre() {
     }
-
+    public Offre(int idOffre, String titrePoste, String description, Date datePublication,
+                 String statuOffre, String departement, String recruteurResponsable) {
+        this.idOffre = idOffre;
+        this.titrePoste = titrePoste;
+        this.description = description;
+        this.datePublication = datePublication;
+        this.statuOffre = statuOffre;
+        this.departement = departement;
+        this.recruteurResponsable = recruteurResponsable;
+    }
     public Offre(String titrePoste, String description, Date datePublication, String statuOffre, String departement, String recruteurResponsable) {
         this.titrePoste = titrePoste;
         this.description = description;
@@ -55,8 +65,7 @@ public class Offre {
     public Offre(String titrePoste, String description, java.sql.Date datePublication, String statuOffre, String departement, String recruteurResponsable) {
     }
 
-    public Offre(int idOffre, String titrePoste, String description, LocalDate datePublication, String statut, String departement, String recruteurResponsable) {
-    }
+
 
     public int getIdOffre() {
         return idOffre;

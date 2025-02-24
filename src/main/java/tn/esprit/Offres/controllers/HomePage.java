@@ -33,7 +33,7 @@ public class HomePage extends Application {
             );
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Candidat.fxml"));
-            Parent root = loader.load();  // Charger le fichier FXML
+            Parent root = loader.load();
             CandidatController controller = loader.getController();
             controller.remplirInformationsCandidat(userConnecte);
             Scene scene = new Scene(root);
