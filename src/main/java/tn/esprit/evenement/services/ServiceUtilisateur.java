@@ -70,25 +70,45 @@ public class ServiceUtilisateur {
         return null;
     }
 
+//
+//    public List<Utilisateur> getAllUtilisateurs() throws SQLException {
+//        List<Utilisateur> utilisateurs = new ArrayList<>();
+//        String req = "SELECT * FROM utilisateur";
+//        Statement stmt = connection.createStatement();
+//        ResultSet rs = stmt.executeQuery(req);
+//
+//        while (rs.next()) {
+//            Utilisateur utilisateur = new Utilisateur(
+//                    rs.getInt("Id"),
+//                    rs.getString("Nom"),
+//                    rs.getString("Prenom"),
+//                    rs.getString("Email"),
+//                    Utilisateur.Role.valueOf(rs.getString("Role")) // Conversion en Enum
+//            );
+//            utilisateurs.add(utilisateur);
+//        }
+//        return utilisateurs;
+//    }
+public List<Utilisateur> getAllUtilisateurs() throws SQLException {
+    List<Utilisateur> utilisateurs = new ArrayList<>();
+    String req = "SELECT * FROM utilisateur";
+    Statement stmt = connection.createStatement();
+    ResultSet rs = stmt.executeQuery(req);
 
-    public List<Utilisateur> getAllUtilisateurs() throws SQLException {
-        List<Utilisateur> utilisateurs = new ArrayList<>();
-        String req = "SELECT * FROM utilisateur";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(req);
-
-        while (rs.next()) {
-            Utilisateur utilisateur = new Utilisateur(
-                    rs.getInt("Id"),
-                    rs.getString("Nom"),
-                    rs.getString("Prenom"),
-                    rs.getString("Email"),
-                    Utilisateur.Role.valueOf(rs.getString("Role")) // Conversion en Enum
-            );
-            utilisateurs.add(utilisateur);
-        }
-        return utilisateurs;
+    while (rs.next()) {
+        Utilisateur utilisateur = new Utilisateur(
+                rs.getInt("Id"),
+                rs.getString("Nom"),
+                rs.getString("Prenom"),
+                rs.getString("Email"),
+                Utilisateur.Role.valueOf(rs.getString("Role")) // Conversion en Enum
+        );
+        utilisateurs.add(utilisateur);
     }
+    return utilisateurs;
+}
+
+
     public Utilisateur getUtilisateurParId(int id) {
         String req = "SELECT * FROM utilisateur WHERE Id = ?";
         try {
